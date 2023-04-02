@@ -1,0 +1,20 @@
+*{
+    margin: auto;
+}
+
+.logo{
+    background-color: rgb(84, 242, 126);
+}
+.logo img{
+    margin-left: 0;
+}
+
+/* .container {
+    background-image:url("https://images.unsplash.com/photo-1584566444402-18d31900511c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fG5pZ2h0JTIwYnVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60");
+    background-repeat: 'no-repeat';
+    background-size: 'cover';
+    height: '100vh';
+    display: 'flex';
+    justify-Content: 'center';
+    align-items: 'center';
+} */
