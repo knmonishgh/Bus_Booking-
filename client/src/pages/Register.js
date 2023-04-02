@@ -1,10 +1,23 @@
 import React from 'react'
-import { Form, Input } from 'antd'
-import { Link } from 'react-router-dom'
+import { Form, Input,message } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import axois from "axios"
 
 function Register() {
-    const onFinish = (values) => {
-        console.log(values);
+    const navigate = useNavigate();
+    const onFinish = async (values) => {
+        try {
+            const response = await axois.post("/api/users/register",values)
+            if(response.data.success){
+                message.success(response.data.message);
+                navigate("/login");
+                
+            }else{
+                message.error(response.data.message);
+            }
+        } catch (error) {
+            message.error(error.message)
+        }
     };
 
     const validateName = (_, value) => {
@@ -79,5 +92,4 @@ function Register() {
     )
 }
 
-export default Register
-//Form-Item is from antd
+export default Register;

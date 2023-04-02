@@ -2,26 +2,29 @@ const router = require('express').Router();
 const User = require("../models/usersmodel")
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
 
-router.use(session({
-    secret: 'your_key',
-    resave: false,
-    saveUninitialized: false
-}));
+
 
 
 router.post("/register", async (req, res) => {
     try {
-        const existingUser = await User.findOne({ email: req.body.email });
+        const existingUser = await User.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] });
         if (existingUser) {
-            return res.send({
-                message: "User already exists",
-                success: false,
-                data: null
-            });
-        }
+            if (existingUser.email === req.body.email) {
+                return res.send({
+                    message: "User with this email already exists",
+                    success: false,
+                    data: null
+                });
+            } else if (existingUser.phone === req.body.phone) {
+                return res.send({
+                    message: "User with this phone number already exists",
+                    success: false,
+                    data: null
+                });
+            }
+        }        
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         req.body.password = hashedPassword;
         const newUser = new User(req.body);
@@ -41,46 +44,56 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.post('/login',
-    passport.authenticate('local', { failureRedirect: "/", failureFlash: true }),
-    function (req, res) {
-        res.send({
-            message: "User logged in successfully",
-            success: true,
-            data: null
-        })
-    });
-
-passport.use(new LocalStrategy(
-    { usernameField: 'email' },
-    async function (email, password, done) {
-
-        try {
-            const result = await collection.findOne({ email: email });
-            console.log(result);
-            user = result;
-            if (user == null) {
-                return res.send({
-                    message: "User already exist",
-                    success: false,
-                    data: null
-                });
-
-            }
-            if (!bcrypt.compareSync(password, result.password)) {
-                return res.send({
-                    message: "password incorrect",
-                    success: false,
-                    data: null
-                });
-            }
-            return done(null, user);
-        } catch (error) {
-            console.error(error);
+router.post("/login",async (req,res)=>{
+    try {
+        const userExists = await User.findOne({email:req.body.email});
+        if(!userExists){
+            return res.send({
+                message: "User does not exist",
+                success:false,
+                data:null,
+            });
         }
+
+        const passwordMatch = await bcrypt.compare(
+            req.body.password,
+            userExists.password
+        );
+        if(!passwordMatch){
+            return res.send({
+                message:"Incorrect password",
+                success:false,
+                data:null
+            });
+        }
+
+
+
+        //to generate  jwt token : encrypted from of any data 
+        const token = jwt.sign({userId:userExists._id},"test",{  
+            expiresIn:"1d"
+        });
+
+        res.send({
+            message:"User Logged in successfully",
+            success:true,
+            data:token
+        });
+    } catch (error) {
+         res.send({
+            message: error.message,
+            success:false,
+            data:null
+         });
+        
     }
-));
+})
 
 
 
-module.exports = router;
+
+
+
+
+
+module.exports = router
