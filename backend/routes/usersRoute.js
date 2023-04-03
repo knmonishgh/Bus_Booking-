@@ -3,6 +3,7 @@ const User = require("../models/usersmodel")
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middleware/authMiddleware');
 
 
 
@@ -24,7 +25,7 @@ router.post("/register", async (req, res) => {
                     data: null
                 });
             }
-        }        
+        }
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         req.body.password = hashedPassword;
         const newUser = new User(req.body);
@@ -44,14 +45,14 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.post("/login",async (req,res)=>{
+router.post("/login", async (req, res) => {
     try {
-        const userExists = await User.findOne({email:req.body.email});
-        if(!userExists){
+        const userExists = await User.findOne({ email: req.body.email });
+        if (!userExists) {
             return res.send({
                 message: "User does not exist",
-                success:false,
-                data:null,
+                success: false,
+                data: null,
             });
         }
 
@@ -59,37 +60,52 @@ router.post("/login",async (req,res)=>{
             req.body.password,
             userExists.password
         );
-        if(!passwordMatch){
+        if (!passwordMatch) {
             return res.send({
-                message:"Incorrect password",
-                success:false,
-                data:null
+                message: "Incorrect password",
+                success: false,
+                data: null
             });
         }
 
-
-
         //to generate  jwt token : encrypted from of any data 
-        const token = jwt.sign({userId:userExists._id},"test",{  
-            expiresIn:"1d"
+        const token = jwt.sign({ userId: userExists._id }, "test", {
+            expiresIn: "1d"
         });
 
         res.send({
-            message:"User Logged in successfully",
-            success:true,
-            data:token
+            message: "User Logged in successfully",
+            success: true,
+            data: token
         });
     } catch (error) {
-         res.send({
+        res.send({
             message: error.message,
-            success:false,
-            data:null
-         });
-        
+            success: false,
+            data: null
+        });
+
     }
 })
 
+router.post("/get-user-by-id", authMiddleware, async(req,res)=>{
+    try {
+        const user = await User.findById(req.body.userId);
+        res.send({
+            message:"User fetched successfully",
+            success:true,
+            data:user
+        });
 
+    } catch (error) {
+        res.send({
+            message:error.message,
+            success:false,
+            data:null
+        });
+        
+    }
+})
 
 
 
