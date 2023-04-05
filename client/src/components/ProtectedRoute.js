@@ -1,10 +1,16 @@
-import axios from 'axios';
-import { message } from 'antd'
-import React, {  useEffect, useState } from 'react'
+import { message } from "antd";
+import axios from "axios";
+import React, { children,useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import { SetUser } from "../redux/usersSlice";
+import DefaultLayout from "./DefaultLayout";
 
-import { useNavigate } from 'react-router-dom'
 
 function ProtectedRoute({children}) {
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.users);
     const [loading,setLoading] = useState(true);
     const navigate = useNavigate();
     const validateToken= async()=>{
@@ -16,7 +22,7 @@ function ProtectedRoute({children}) {
             });
             if(response.data.success){
                 setLoading(false);
-                navigate('/');
+                dispatch(SetUser(response.data.data));
                 
             }else{
                 setLoading(false);
@@ -42,7 +48,7 @@ function ProtectedRoute({children}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
-  return <div>{loading ? <div>loading...</div>:<>{children}</>}</div>;
+  return <div>{!loading && <DefaultLayout>{children}</DefaultLayout>}</div>;
 }
 
 export default ProtectedRoute;
