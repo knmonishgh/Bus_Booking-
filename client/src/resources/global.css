@@ -28,6 +28,11 @@ input{
    font-size: 30px;
 }
 
+h1{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .text-xl{
     font-size: 25px;
 }
