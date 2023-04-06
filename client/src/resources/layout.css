@@ -17,7 +17,7 @@
     justify-content: start;
     flex-direction: row;
 }
-
+  
 .logo{
    color: white;
 }
@@ -37,6 +37,7 @@
 
 .content{
     padding: 10px;
+    
 }
 
 .menu{
