@@ -21,7 +21,11 @@ const userSchema = mongoose.Schema(
             unique:true,                
             required: true
             
-        }
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false,
+        }
     }
 );
 

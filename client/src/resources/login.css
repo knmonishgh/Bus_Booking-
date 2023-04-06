@@ -1,18 +1,60 @@
-*{
-    margin: auto;
+body{
+
+    background:linear-gradient(rgba(6, 241, 6, 0.374),white);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 
-.logo img{
-    margin-left: 0;
-}
 
-/* .container {
-    background-image:url("https://images.unsplash.com/photo-1584566444402-18d31900511c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fG5pZ2h0JTIwYnVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60");
-    background-repeat: 'no-repeat';
-    background-size: 'cover';
+.container {
     height: '100vh';
     display: 'flex';
     justify-Content: 'center';
     align-items: 'center';
-} */
+}
+
+
+.logo{
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+.logo img{
+    width: 150px;
+    margin-left: 20px;
+}
+
+.login-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    
+    /* background-color: rgb(8, 244, 126); */
+    
+    
+}
+
+
+.user-icon img{
+    width: 80px;
+}
+
+.login{
+    width: 400px;
+    padding:20px;
+    box-shadow: rgba(0, 0, 0, 0.377) 0px 10px 20px 0px;
+    background-color: rgb(255, 255, 255);
+    
+}
+
+.login-btn{
+    background-color: aquamarine;
+}
+
+.link1{
+    color: red;
+
+}

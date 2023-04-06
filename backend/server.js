@@ -8,11 +8,7 @@ app.use(express.json())
 
 
 const usersRoute = require('./routes/usersRoute');
-const busesRoute = require('./route/busesRoute')
-
-
-
-
+const busesRoute = require('./routes/busesRoute')
 
 
 app.use('/api/users',usersRoute);

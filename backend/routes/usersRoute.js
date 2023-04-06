@@ -88,6 +88,20 @@ router.post("/login", async (req, res) => {
     }
 })
 
+router.post("/logout",authMiddleware,async (req,res)=>{
+    try{
+        req.User.tokens = req.User.tokens.filter((token)=>{
+            return token.token !== req.token;
+        });
+
+        await req.User.save();
+        res.send();
+    }
+    catch(e){
+        res.status(500).send();
+    }
+});
+
 router.post("/get-user-by-id", authMiddleware, async(req,res)=>{
     try {
         const user = await User.findById(req.body.userId);

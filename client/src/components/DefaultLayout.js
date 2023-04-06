@@ -1,14 +1,14 @@
 import React from 'react'
-import '../resources/layout.css'
-import {useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import "../resources/navigation.css"
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
 function DefaultLayout({ children }) {
-    const navigate= useNavigate();
-    const [collapsed,setCollapsed]=React.useState(false);
-    const {user}=useSelector(state => state.users)
+    const navigate = useNavigate();
+    const [collapsed, setCollapsed] = React.useState(false);
+    const { user } = useSelector(state => state.users)
     const userMenu = [
         {
             name: 'Home',
@@ -60,29 +60,43 @@ function DefaultLayout({ children }) {
         }
 
     ]
-    const menuToBeRendered = user?.isAdmin ? adminMenu: userMenu;
-    const activeRoute=window.location.pathname;
+    const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
+    const activeRoute = window.location.pathname;
     return (
         <div className='layout-parent'>
             <div className='body'>
                 <div className='header'>
                     <div className='subheader'>
-                        <h1 className='logo'>TravelSwift</h1>
-                        <h1 className="role">Name : {user?.name} <br />Role : {user?.isAdmin ? 'Admin' : 'User'}</h1>
+                        <h3 className='d-flex logo'>TravelSwift</h3>
+                        {/* <h3 className="role">Name : {user?.name} <br />Role : {user?.isAdmin ? 'Admin' : 'User'}</h3> */}
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Redbus_logo.jpg/1200px-Redbus_logo.jpg" alt="" style={{ width: '100px', }}></img>
                     </div>
-                    <div className='d-flex flex-row gap-3 justify-content-start menu'>
+
+                    <div className='d-flex flex-row gap-3 justify-content-end menu'>
                         {menuToBeRendered.map((item, index) => {
                             return (
-                                 <div className={`${activeRoute===item.path && 'active-menu-item'} menu-item`}>
-                            <i className={item.icon}></i>
-                            <span 
-                               onClick={()=>{
-                                navigate(item.path);
-                              }}
+                                <div
+                                    className={`${activeRoute === item.path && "active-menu-item"
+                                        } menu-item`}
                                 >
-                                {item.name}</span>
-                            </div>
-                        );
+                                    <i className={item.icon}></i>
+                                    {!collapsed && (
+                                        <span
+                                            onClick={() => {
+                                                if (item.path === "/logout") {
+                                                    localStorage.removeItem("token");
+                                                    navigate("/login");
+                                                } else {
+                                                    navigate(item.path);
+                                                }
+                                            }}
+                                        >
+                                            {item.name}
+                                        </span>
+                                    )}
+                                </div>
+                            );
+
                         })}
                     </div>
                 </div>
