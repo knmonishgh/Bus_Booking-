@@ -24,19 +24,19 @@ function Login() {
         }
     };
 
-    
+
 
     const [form] = Form.useForm()
 
     return (
-        <><div className="logo">
-            <img src="https://w7.pngwing.com/pngs/554/37/png-transparent-green-and-white-bus-logo-bus-train-computer-icons-public-transport-bus-transportation-icon-miscellaneous-grass-transport-thumbnail.png" alt="logo" />
-        </div>
-        <div className='container'>
-                <div className='h-screen d-flex justify-content-center align-items-center'>
-                    <div className='w-400 card p-3'>
-
-                        <h1 className='text-lg'>TravelSwift - Login</h1>
+        <>
+            <div className='container'>
+                <div className='login-box'>
+                    <div className='login'>
+                        <div className="logo">
+                            <img src={require("../images/BUSLOGO.png")} alt="logo" />
+                        </div>
+                        <h1 className='text-lg'> Login</h1>
                         <hr />
                         <Form layout="vertical" onFinish={onFinish} form={form}>
                             <Form.Item label="Email" name="email">
@@ -45,15 +45,16 @@ function Login() {
                             <Form.Item label="Password" name="password">
                                 <Input type="password" required />
                             </Form.Item>
-                            <hr />
+                            <br />
                             <div className='d-flex justify-content-between align-items-center'>
-                                <Link to="/login" style={{ color: 'red' }}>Forget Password?</Link>
+                                <Link className="link1" to="/login">Forget Password?</Link>
+
                             </div>
 
-                            <hr />
+                            <br />
                             <div className='d-flex justify-content-between align-items-center'>
                                 <Link to="/register">Click here to Register</Link>
-                                <button className='secondary-btn' type='submit'>Login</button>
+                                <button className='primary-btn login-btn' type='submit'>Login</button>
                             </div>
                         </Form>
                     </div>

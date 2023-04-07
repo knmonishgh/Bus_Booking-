@@ -1,0 +1,23 @@
+.header{
+    background-color: rgb(10, 246, 10);
+}
+
+.header{
+    display:flex;
+
+}
+
+.menu{
+    margin-left: 50%;
+    padding-left:50px;
+    cursor: pointer;
+}
+
+
+.abc{
+    background-color: blanchedalmond;
+}
+
+.tab{
+    background-color: aquamarine;
+}
