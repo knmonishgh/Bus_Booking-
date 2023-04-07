@@ -2,7 +2,8 @@ import React from 'react'
 import "../resources/navigation.css"
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Footer from '../pages/Footer';
+
+import Footer from './footer';
 
 
 function DefaultLayout({ children }) {

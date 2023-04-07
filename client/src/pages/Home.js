@@ -1,9 +1,10 @@
-import { Col, message, Row, Carousel } from "antd";
+import { Col, message, Row } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import Bus from "../components/Bus";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+
 import '../resources/home.css';
 
 const contentStyle = {
@@ -15,17 +16,24 @@ const contentStyle = {
   background: '#364d79',
 };
 
+
 function Home() {
   const [filters = {}, setFilters] = useState({});
   const dispatch = useDispatch();
   const [buses, setBuses] = useState([]);
+  
   const getBuses = async () => {
+    if (!filters.from || !filters.to) {
+      return;
+    }
+  
     const tempFilters = {};
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {
         tempFilters[key] = filters[key];
       }
     });
+  
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
@@ -39,17 +47,17 @@ function Home() {
       );
       dispatch(HideLoading());
       if (response.data.success) {
-        setBuses(response.data.data);
+        const filteredBuses = response.data.data.filter(
+          (bus) => bus.status === "Yet To Start"
+        );
+        setBuses(filteredBuses);
       } else {
         message.error(response.data.message);
       }
     } catch (error) {
       dispatch(HideLoading());
       message.error(error.message);
-    }
-  };
-  const onChange = (currentSlide) => {
-    console.log(currentSlide);
+    }
   };
 
   useEffect(() => {
@@ -57,20 +65,6 @@ function Home() {
   }, []);
   return (
     <div>
-      <Carousel afterChange={onChange}>
-        <div>
-          <h3 style={contentStyle}>1</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>4</h3>
-        </div>
-      </Carousel>
       <div className="my-3 py-1">
         <Row gutter={10} align="center">
           <Col lg={6} sm={24}>
@@ -102,7 +96,7 @@ function Home() {
           <Col lg={6} sm={24}>
             <div className="d-flex gap-2">
               <button className="primary-btn" onClick={() => getBuses()}>
-                Filter
+                Search
               </button>
               <button
                 className="outlined px-3"
@@ -122,13 +116,14 @@ function Home() {
       </div>
       <div>
         <Row gutter={[15, 15]}>
-          {buses
+         {buses
             .filter((bus) => bus.status === "Yet To Start")
             .map((bus) => (
               <Col lg={12} xs={24} sm={24}>
                 <Bus bus={bus} />
               </Col>
-            ))}
+            ))
+          }
         </Row>
       </div>
       <div class="onthegoimage-and-content">
