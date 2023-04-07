@@ -1,28 +1,16 @@
-.onthegoimage-and-content {
+.ticketbox{
+    border: black solid;
+    width: fit-content;
+    padding: 20px;
+}
+.tkt{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px;
-  }
-  
-  .onthegoimage {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-  
-  .onthegocontent {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-  
-  .onthegotitle {
-    font-weight: bold;
-    color: #38d39f;
-  }
-  
-  .onthegotext {
-    font-size: 20px;
-    line-height: 1.5;
-    color: #121111;
-  }
+    justify-content: center;
+}
+
+
+.ticketbox input{
+    border: cadetblue solid;
+    border-radius: 5px;
+
+}

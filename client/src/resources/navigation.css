@@ -20,7 +20,7 @@
 }
 
 .subheader img{
-    width: 100px;
+    width: 120px;
     position: relative;
 
 }
@@ -36,6 +36,7 @@
 
 .navitem{
     padding:10px;
+
 }
 
 .navitem:hover{
@@ -51,6 +52,7 @@
   }
  
   .menu-item i {
+   font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
     margin-right: 10px;
     color: white;
@@ -65,3 +67,5 @@
   .menu-item span:hover {
     color: lightsalmon;
   }
+
+
