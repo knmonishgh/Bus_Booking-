@@ -67,17 +67,17 @@ function DefaultLayout({ children }) {
             <div className='body'>
                 <div className='header'>
                     <div className='subheader'>
-                        <h3 className='d-flex logo'>TravelSwift</h3>
+                    <img src={require("../images/BUSLOGO.png")} alt="logo" />
                         {/* <h3 className="role">Name : {user?.name} <br />Role : {user?.isAdmin ? 'Admin' : 'User'}</h3> */}
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Redbus_logo.jpg/1200px-Redbus_logo.jpg" alt="" style={{ width: '100px', }}></img>
+                        {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Redbus_logo.jpg/1200px-Redbus_logo.jpg" alt="" style={{ width: '100px', }}></img> */}
                     </div>
 
-                    <div className='d-flex flex-row gap-5 justify-content-end menu '>
+                    <div className='d-flex flex-row gap-3 justify-content-end menu nav'>
                         {menuToBeRendered.map((item, index) => {
                             return (
                                 <div
                                     className={`${activeRoute === item.path && "active-menu-item"
-                                        } menu-item`}
+                                        } menu-item navitem`}
                                 >
                                     <i className={item.icon}></i>
                                     {(
