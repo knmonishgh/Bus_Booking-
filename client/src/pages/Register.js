@@ -82,6 +82,7 @@ function Register() {
                     <Form.Item label="Confirm Password" name="confirmPassword" rules={[{ validator: validateConfirmPassword }]}>
                         <Input type="password" required />
                     </Form.Item>
+                    <hr/>
                     <div className='d-flex justify-content-between align-items-center'>
                         <Link to="/login">Click here to Login</Link>
                         <button className='secondary-btn' type='submit'>Register</button>

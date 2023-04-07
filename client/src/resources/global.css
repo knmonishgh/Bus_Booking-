@@ -1,7 +1,7 @@
 /* heights and widths */
 
 .h-screen {
-    height: 100vh;
+    height: 110vh;
   }
   
   .w-400 {
@@ -68,12 +68,16 @@
   }
   
   .secondary-btn {
-    background-color: var(--secondary) !important;
+    background-color: var(--secondary);
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     height: 40px;
+  }
+
+  .secondary-btn:hover{
+    background-color: var(--primary);
   }
   
   .outlined{
@@ -100,7 +104,11 @@
   
   a {
     text-decoration: none !important;
-    color: var(--primary) !important;
+    color: var(--primary);
+  }
+
+  a:hover{
+     color: orange;
   }
   
   i {

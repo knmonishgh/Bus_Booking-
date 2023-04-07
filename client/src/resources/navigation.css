@@ -8,9 +8,10 @@
 }
 
 .menu{
-    margin-left: 50%;
+    margin-left: 30%;
     padding-left:50px;
     cursor: pointer;
+    align-items: center;
 }
 
 
@@ -20,4 +21,30 @@
 
 .tab{
     background-color: aquamarine;
+}
+
+
+.menu{
+    margin-top: 50px;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.active-menu-item {
+  border: 2px solid white;
+  border-radius: 5px;
+}
+.menu-item i {
+  font-size: 20px;
+  margin-right: 10px;
+  color: white;
+  gap: 15px;
+}
+.menu-item span {
+  color: white;
+  font-size: 18px;
 }

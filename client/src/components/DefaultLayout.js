@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 function DefaultLayout({ children }) {
     const navigate = useNavigate();
-    const [collapsed, setCollapsed] = React.useState(false);
+    //const [collapsed, setCollapsed] = React.useState(false);
     const { user } = useSelector(state => state.users)
     const userMenu = [
         {
@@ -72,7 +72,7 @@ function DefaultLayout({ children }) {
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Redbus_logo.jpg/1200px-Redbus_logo.jpg" alt="" style={{ width: '100px', }}></img>
                     </div>
 
-                    <div className='d-flex flex-row gap-3 justify-content-end menu'>
+                    <div className='d-flex flex-row gap-5 justify-content-end menu '>
                         {menuToBeRendered.map((item, index) => {
                             return (
                                 <div
@@ -80,7 +80,7 @@ function DefaultLayout({ children }) {
                                         } menu-item`}
                                 >
                                     <i className={item.icon}></i>
-                                    {!collapsed && (
+                                    {(
                                         <span
                                             onClick={() => {
                                                 if (item.path === "/logout") {

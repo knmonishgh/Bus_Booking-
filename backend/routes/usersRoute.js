@@ -102,6 +102,7 @@ router.post("/logout",authMiddleware,async (req,res)=>{
     }
 });
 
+// to validate token of user to enter into home page
 router.post("/get-user-by-id", authMiddleware, async(req,res)=>{
     try {
         const user = await User.findById(req.body.userId);
