@@ -2,13 +2,13 @@ import React from 'react'
 import "../resources/navigation.css"
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Footer from './footer';
 
+import Footer from './footer';
 
 
 function DefaultLayout({ children }) {
     const navigate = useNavigate();
-    const [collapsed, setCollapsed] = React.useState(false);
+    //const [collapsed, setCollapsed] = React.useState(false);
     const { user } = useSelector(state => state.users)
     const userMenu = [
         {
@@ -81,7 +81,7 @@ function DefaultLayout({ children }) {
                                         } menu-item navitem`}
                                 >
                                     <i className={item.icon}></i>
-                                    {!collapsed && (
+                                    {(
                                         <span
                                             onClick={() => {
                                                 if (item.path === "/logout") {

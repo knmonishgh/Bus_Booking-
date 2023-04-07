@@ -47,16 +47,17 @@ function Login() {
                                 <Input type="password" required />
                             </Form.Item>
                             <br />
+
                             <div className='d-flex justify-content-between align-items-center'>
                                 <Link className="link1" to="/login">Forget Password?</Link>
-
                             </div>
-
-                            <br />
+                            <hr/>
                             <div className='d-flex justify-content-between align-items-center'>
-                                <Link to="/register">Click here to Register</Link>
-                                <button className='primary-btn login-btn' type='submit'>Login</button>
+                                <Link to="/register" >Click here to Register</Link>
+                                <button className='secondary-btn' type='submit'>Login</button>
                             </div>
+
+
                         </Form>
                     </div>
                 </div>

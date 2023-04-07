@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Input,message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axois from "axios"
+import styles from "../resources/login.module.css"
 
 function Register() {
     const navigate = useNavigate();
@@ -59,9 +60,9 @@ function Register() {
     const [form] = Form.useForm()
 
     return (
-        <div className='h-screen d-flex justify-content-center align-items-center' >
-            <div className='w-400 card p-3'>
-            <div className="logo">
+        <div className={styles.loginbox}>
+                    <div className={styles.login}>
+                        <div className={styles.logo}>
                             <img src={require("../images/BUSLOGO.png")} alt="logo" />
                         </div>
                 <h1 className='text-lg' >TravelSwift - Register</h1>
@@ -82,6 +83,7 @@ function Register() {
                     <Form.Item label="Confirm Password" name="confirmPassword" rules={[{ validator: validateConfirmPassword }]}>
                         <Input type="password" required />
                     </Form.Item>
+                    <hr/>
                     <div className='d-flex justify-content-between align-items-center'>
                         <Link to="/login">Click here to Login</Link>
                         <button className='secondary-btn' type='submit'>Register</button>

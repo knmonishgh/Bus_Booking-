@@ -1,0 +1,28 @@
+.onthegoimage-and-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+  }
+  
+  .onthegoimage {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .onthegocontent {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .onthegotitle {
+    font-weight: bold;
+    color: #38d39f;
+  }
+  
+  .onthegotext {
+    font-size: 20px;
+    line-height: 1.5;
+    color: #121111;
+  }

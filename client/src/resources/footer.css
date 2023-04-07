@@ -2,7 +2,9 @@
     background-color: #fcfafa;
     color: #000080;
     font-family: Arial, sans-serif;
+
     padding: 50px 50px 50px;
+
   }
   
   .box-container {
@@ -76,4 +78,8 @@
     text-align: center;
     font-size: 1.5rem;
     color:#38d39f;
+
   }
+
+  }
+

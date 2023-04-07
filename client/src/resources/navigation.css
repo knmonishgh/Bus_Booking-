@@ -2,7 +2,7 @@
 
 
 .header{
-    background-color: rgb(4, 0, 0);
+    background-color: black;
 }
 
 .header{
@@ -42,3 +42,26 @@
     color: red;
 }
 
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+ 
+  .menu-item i {
+    font-size: 15px;
+    margin-right: 10px;
+    color: white;
+  }
+
+ 
+  .menu-item span {
+    color: white;
+    font-size: 18px;
+  }
+
+  .menu-item span:hover {
+    color: lightsalmon;
+  }

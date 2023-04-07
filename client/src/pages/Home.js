@@ -5,6 +5,18 @@ import { useDispatch} from "react-redux";
 import Bus from "../components/Bus";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
+import '../resources/home.css';
+
+const contentStyle = {
+  margin: 0,
+  height: '160px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
+
+
 function Home() {
   const [filters = {}, setFilters] = useState({});
   const dispatch = useDispatch();
@@ -114,7 +126,20 @@ function Home() {
           }
         </Row>
       </div>
+      <div class="onthegoimage-and-content">
+        <div class="onthegoimage">
+          <img src={require("../images/onthego1.png")} alt="logo" />
+        </div>
+        <div class="onthegocontent">
+          <h2 class="onthegotitle">ON-THE-GO</h2>
+          <p class="onthegotext">Enjoy the following exclusive features:
+            Last Minute Booking - In a hurry to book a bus at the last minute? Choose the bus passing from your nearest boarding point and book in a few easy steps.
+            Boarding Point Navigation - Never lose your way while travelling to your boarding point!
+            Comprehensive Ticket Details- Everything that you need to make the travel hassle free - rest stop details, boarding point images, chat with co-passengers, wake-up alarm and much more!</p>
+        </div>
+      </div>
     </div>
+
   );
 }
 
