@@ -2,7 +2,7 @@ import React from 'react'
 import "../resources/navigation.css"
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import Footer from '../pages/Footer';
 
 
 function DefaultLayout({ children }) {
@@ -102,6 +102,7 @@ function DefaultLayout({ children }) {
                 </div>
                 <div className='content'>{children}</div>
             </div>
+            <Footer/>
         </div>
     )
 }

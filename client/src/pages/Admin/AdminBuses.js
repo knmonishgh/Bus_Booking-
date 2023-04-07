@@ -79,6 +79,7 @@ function AdminBuses() {
     {
       title: "Journey Date",
       dataIndex: "journeyDate",
+      
     },
     {
       title: "Status",
