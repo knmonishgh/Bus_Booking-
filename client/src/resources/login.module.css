@@ -1,9 +1,4 @@
-body{
 
-    background:linear-gradient(rgba(6, 241, 6, 0.374),white);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 
 
 
@@ -27,7 +22,7 @@ body{
     margin-left: 20px;
 }
 
-.login-box{
+.loginbox{
     display: flex;
     justify-content: center;
     margin-top: 60px;

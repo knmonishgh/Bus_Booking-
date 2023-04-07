@@ -1,8 +1,9 @@
 import React from 'react'
-import '../resources/login.css';
 import { Form, Input, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axois from "axios"
+
+import styles from "../resources/login.module.css"
 
 
 
@@ -31,9 +32,9 @@ function Login() {
     return (
         <>
             <div className='container'>
-                <div className='login-box'>
-                    <div className='login'>
-                        <div className="logo">
+                <div className={styles.loginbox}>
+                    <div className={styles.login}>
+                        <div className={styles.logo}>
                             <img src={require("../images/BUSLOGO.png")} alt="logo" />
                         </div>
                         <h1 className='text-lg'> Login</h1>

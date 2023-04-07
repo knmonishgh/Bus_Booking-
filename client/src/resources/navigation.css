@@ -1,16 +1,28 @@
+
+
+
 .header{
-    background-color: rgb(10, 246, 10);
+    background-color: rgb(4, 0, 0);
 }
 
 .header{
     display:flex;
+    justify-content: space-between;
 
 }
 
 .menu{
-    margin-left: 50%;
-    padding-left:50px;
     cursor: pointer;
+    color:white;
+}
+.subheader{
+    justify-content: flex-start;
+}
+
+.subheader img{
+    width: 100px;
+    position: relative;
+
 }
 
 
@@ -21,3 +33,12 @@
 .tab{
     background-color: aquamarine;
 }
+
+.navitem{
+    padding:10px;
+}
+
+.navitem:hover{
+    color: red;
+}
+
