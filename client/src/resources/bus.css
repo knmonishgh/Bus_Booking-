@@ -26,4 +26,15 @@
 
 .homecard{
   margin: 20px;
+  border: 0;
 }
+
+.cardtitle{
+  background-color: rgb(244, 165, 86);
+  padding: 10px;
+}
+
+.cardtitle h1{
+  color: black !important;
+}
+
