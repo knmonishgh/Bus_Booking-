@@ -68,7 +68,7 @@ function BookNow() {
                 Jourey Date : {bus.journeyDate}
               </p>
               <p className="text-md">
-                Fare : $ {bus.fare} /-
+                Fare : ₹ {bus.fare} /-
               </p>
               <p className="text-md">
                 Departure Time : {bus.departure}

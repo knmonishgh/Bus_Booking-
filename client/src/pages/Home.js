@@ -85,7 +85,7 @@ function Home() {
         <div className="my-3 py-1 ticketbox" >
           <Row gutter={10} align="center">
             <Col lg={24}>
-              <h1>Book</h1>
+              <h1>Book Your Bus</h1>
             </Col>
             <Col lg={6} sm={24}>
               <input
@@ -93,6 +93,7 @@ function Home() {
                 placeholder="From"
                 value={filters.from}
                 onChange={(e) => setFilters({ ...filters, from: e.target.value })}
+                required
               />
             </Col>
             <Col lg={6} sm={24}>
@@ -101,7 +102,7 @@ function Home() {
                 placeholder="To"
                 value={filters.to}
                 onChange={(e) => setFilters({ ...filters, to: e.target.value })}
-              />
+                required />
             </Col>
             <Col lg={6} sm={24}>
               <input
@@ -111,7 +112,7 @@ function Home() {
                 onChange={(e) =>
                   setFilters({ ...filters, journeyDate: e.target.value })
                 }
-              />
+                required />
             </Col>
             <Col lg={3} sm={24}>
               <div className="d-flex gap-2">
@@ -166,19 +167,19 @@ function Home() {
             }
           </Row>
         </div>
-        </div>
-        <Card
-          hoverable
-          style={{
-            width: 240,
-          }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        >
-          <Meta title="Europe Street beat" description="www.instagram.com" />
-        </Card>
-
       </div>
-    
+      <Card
+        hoverable
+        style={{
+          width: 240,
+        }}
+        cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+      >
+        <Meta title="Europe Street beat" description="www.instagram.com" />
+      </Card>
+
+    </div>
+
   );
 }
 
