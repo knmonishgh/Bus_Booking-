@@ -61,14 +61,14 @@ function Home() {
       message.error(error.message);
     }
   };
-
-
   useEffect(() => {
     getBuses();
   }, []);
+
+
   return (
     <div>
-      <Carousel autoplay effect="fade">
+      <Carousel autoplay effect="fade" className="Carousel">
         <div>
           <img src={require("../images/car1.png")} alt="" />
         </div>
@@ -80,110 +80,127 @@ function Home() {
         </div>
       </Carousel>
       <div className="tkt">
-
-
-      <div className="my-3 py-1 ticketbox">
-  <Row gutter={10} align="center">
-    <Col lg={24}>
-      <h1>Book Your Bus</h1>
-    </Col>
-    <Col lg={6} sm={24}>
-      <label htmlFor="fromInput">From</label>
-      <input
-        type="text"
-        id="fromInput"
-        placeholder="Enter Starting Point"
-        value={filters.from}
-        onChange={(e) => setFilters({ ...filters, from: e.target.value })}
-        required
-      />
-    </Col>
-    <Col lg={6} sm={24}>
-      <label htmlFor="toInput">To</label>
-      <input
-        type="text"
-        id="toInput"
-        placeholder="Enter Destination"
-        value={filters.to}
-        onChange={(e) => setFilters({ ...filters, to: e.target.value })}
-        required
-      />
-    </Col>
-    <Col lg={6} sm={24}>
-      <label htmlFor="dateInput">Date</label>
-      <input
-        type="date"
-        id="dateInput"
-        placeholder="Select Travel Date"
-        value={filters.journeyDate}
-        onChange={(e) => setFilters({ ...filters, journeyDate: e.target.value })}
-        required
-      />
-    </Col>
-    <Col lg={3} sm={24}>
-      <div className="d-flex gap-2">
-        <button className="primary-btn" onClick={() => getBuses()}>
-          Search
-        </button>
-      </div>
-    </Col>
-    <Col lg={6} sm={24}>
-      <label htmlFor="typeInput">Type</label>
-      <input
-        type="text"
-        id="typeInput"
-        placeholder="Enter Bus Type"
-        value={filters.type}
-        onChange={(e) => setFilters({ ...filters, type: e.target.value })}
-      />
-    </Col>
-    <Col lg={3} sm={24}>
-      <div className="d-flex gap-2">
-        <button className="primary-btn" onClick={() => getBuses()}>
-          Filter
-        </button>
-      </div>
-    </Col>
-    <Col lg={3} sm={24}>
-      <div className="d-flex gap-2">
-        <button
-          className="outlined px-3"
-          onClick={() =>
-            setFilters({
-              from: "",
-              to: "",
-              journeyDate: "",
-            })
-          }>
-          Clear
-        </button>
-      </div>
-    </Col>
-  </Row>
-</div>
-
-        <div>
-          <Row gutter={[15, 15]}>
-            {buses
-              .filter((bus) => bus.status === "Yet To Start")
-              .map((bus) => (
-                <Col lg={12} xs={24} sm={24}>
-                  <Bus bus={bus} />
-                </Col>
-              ))
-            }
+        <div className="my-3 py-1 ticketbox" >
+          <Row gutter={[10, 10]} align="center">
+            <Col lg={24}>
+              <h1>Book Your Ticket</h1>
+            </Col>
+            <Col lg={7} sm={24}>
+              <input
+                type="text"
+                placeholder="From"
+                value={filters.from}
+                onChange={(e) => setFilters({ ...filters, from: e.target.value })}
+              />
+            </Col>
+            <Col lg={7} sm={24}>
+              <input
+                type="text"
+                placeholder="To"
+                value={filters.to}
+                onChange={(e) => setFilters({ ...filters, to: e.target.value })}
+              />
+            </Col>
+            <Col lg={7} sm={24}>
+              <input
+                type="date"
+                placeholder="Date"
+                value={filters.journeyDate}
+                onChange={(e) =>
+                  setFilters({ ...filters, journeyDate: e.target.value })
+                }
+              />
+            </Col>
+            <Col lg={3} sm={24}>
+              <div className="d-flex gap-2">
+                <button className="primary-btn" onClick={() => getBuses()}>
+                  Search
+                </button>
+              </div>
+            </Col>
           </Row>
         </div>
       </div>
-      <Card
-        hoverable
-        style={{
-          width: 240,
-        }}
-        cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
+      <div>
+        
+        <Row gutter={[15, 15]} className="businfo">
+
+          
+          
+          <Col lg={3} sm={24} className="filterin">
+            <input
+              type="text"
+              placeholder="Type"
+              value={filters.type}
+              onChange={(e) =>
+                setFilters({ ...filters, type: e.target.value })
+              }
+            />
+          </Col>
+          </Row>
+          <Row>
+          <Col lg={3} sm={24} className="filterin">
+            <div className="d-flex gap-2">
+              <button className="primary-btn" onClick={() => getBuses()}>
+                Filter
+              </button>
+            </div>
+          </Col>
+          </Row>
+          {buses
+            .filter((bus) => bus.status === "Yet To Start")
+            .map((bus) => (
+              <Col lg={16} xs={24} sm={24} className="businformation">
+                <Bus bus={bus} />
+              </Col>
+            ))
+          }
+          
+        
+        
+      </div>
+
+
+
+      <div className="travelcard">
+        <div>
+          <h1> A Journey of a thousand miles begins with a <span><h1>Single step</h1></span> </h1>
+          <p class="text">Enjoy the following exclusive features:
+            Last Minute Booking - In a hurry to book a bus at the last minute? Choose the bus passing from your
+            nearest boarding point and book in a few easy steps.
+            Boarding Point Navigation - Never lose your way while travelling to your boarding point!
+            Comprehensive Ticket Details- Everything that you need to make the travel hassle free - rest stop
+            details, boarding point images, chat with co-passengers, wake-up alarm and much more!</p>
+        </div>
+
+
+        <Card className="card1"
+          hoverable
+          style={{
+            width: 240,
+          }}
+          cover={<img alt="example" src={require("../images/Blue Animated Travel to Dubai Instagram Post (260 × 400 px).gif")} />}
+        >
+        </Card>
+        <Card className="card2"
+          hoverable
+          style={{
+            width: 240,
+          }}
+          cover={<img alt="example" src={require("../images/Blue Animated Travel to Dubai Instagram Post (260 × 400 px).gif")} />}
+        >
+        </Card>
+        <Card className="card3"
+          hoverable
+          style={{
+            width: 240,
+          }}
+          cover={<img alt="example" src={require("../images/Blue Animated Travel to Dubai Instagram Post (260 × 400 px).gif")} />}
+        >
+        </Card>
+
+      </div>
+
 
     </div>
 

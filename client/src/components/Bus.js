@@ -1,11 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../resources/bus.css"
 
 function Bus({ bus }) {
   const navigate = useNavigate();
   return (
     <div className="card p-2 homecard">
-      <h1 className="text-lg primary-text">{bus.name}</h1>
+
+      <div className="cardtitle">
+          <h1 className="text-lg primary-text">{bus.name}</h1>
+      </div>
+       
       <hr />
       <div className="d-flex justify-content-between">
         <div>
@@ -29,8 +34,12 @@ function Bus({ bus }) {
           <p className="text-sm">Joureny Date</p>
           <p className="text-sm">{bus.journeyDate}</p>
         </div>
+        <div>
+          <p className="text-sm">Type</p>
+          <p className="text-sm">{bus.type}</p>
+        </div>
 
-        <h1 className="text-lg underline secondary-text" onClick={()=>{
+        <h1 className="text-lg secondary-text" onClick={()=>{
             navigate(`/book-now/${bus._id}`)
         }}>Book Now</h1>
       </div>
