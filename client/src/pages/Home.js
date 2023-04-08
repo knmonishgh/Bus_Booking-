@@ -82,79 +82,86 @@ function Home() {
       <div className="tkt">
 
 
-        <div className="my-3 py-1 ticketbox" >
-          <Row gutter={10} align="center">
-            <Col lg={24}>
-              <h1>Book Your Bus</h1>
-            </Col>
-            <Col lg={6} sm={24}>
-              <input
-                type="text"
-                placeholder="From"
-                value={filters.from}
-                onChange={(e) => setFilters({ ...filters, from: e.target.value })}
-                required
-              />
-            </Col>
-            <Col lg={6} sm={24}>
-              <input
-                type="text"
-                placeholder="To"
-                value={filters.to}
-                onChange={(e) => setFilters({ ...filters, to: e.target.value })}
-                required />
-            </Col>
-            <Col lg={6} sm={24}>
-              <input
-                type="date"
-                placeholder="Date"
-                value={filters.journeyDate}
-                onChange={(e) =>
-                  setFilters({ ...filters, journeyDate: e.target.value })
-                }
-                required />
-            </Col>
-            <Col lg={3} sm={24}>
-              <div className="d-flex gap-2">
-                <button className="primary-btn" onClick={() => getBuses()}>
-                  Search
-                </button>
-              </div>
-            </Col>
-            <Col lg={6} sm={24}>
-              <input
-                type="text"
-                placeholder="Type"
-                value={filters.type}
-                onChange={(e) =>
-                  setFilters({ ...filters, type: e.target.value })
-                }
-              />
-            </Col>
-            <Col lg={3} sm={24}>
-              <div className="d-flex gap-2">
-                <button className="primary-btn" onClick={() => getBuses()}>
-                  Filter
-                </button>
-              </div>
-            </Col>
-            <Col lg={3} sm={24}>
-              <div className="d-flex gap-2">
-                <button
-                  className="outlined px-3"
-                  onClick={() =>
-                    setFilters({
-                      from: "",
-                      to: "",
-                      journeyDate: "",
-                    })
-                  }>
-                  Clear
-                </button>
-              </div>
-            </Col>
-          </Row>
-        </div>
+      <div className="my-3 py-1 ticketbox">
+  <Row gutter={10} align="center">
+    <Col lg={24}>
+      <h1>Book Your Bus</h1>
+    </Col>
+    <Col lg={6} sm={24}>
+      <label htmlFor="fromInput">From</label>
+      <input
+        type="text"
+        id="fromInput"
+        placeholder="Enter Starting Point"
+        value={filters.from}
+        onChange={(e) => setFilters({ ...filters, from: e.target.value })}
+        required
+      />
+    </Col>
+    <Col lg={6} sm={24}>
+      <label htmlFor="toInput">To</label>
+      <input
+        type="text"
+        id="toInput"
+        placeholder="Enter Destination"
+        value={filters.to}
+        onChange={(e) => setFilters({ ...filters, to: e.target.value })}
+        required
+      />
+    </Col>
+    <Col lg={6} sm={24}>
+      <label htmlFor="dateInput">Date</label>
+      <input
+        type="date"
+        id="dateInput"
+        placeholder="Select Travel Date"
+        value={filters.journeyDate}
+        onChange={(e) => setFilters({ ...filters, journeyDate: e.target.value })}
+        required
+      />
+    </Col>
+    <Col lg={3} sm={24}>
+      <div className="d-flex gap-2">
+        <button className="primary-btn" onClick={() => getBuses()}>
+          Search
+        </button>
+      </div>
+    </Col>
+    <Col lg={6} sm={24}>
+      <label htmlFor="typeInput">Type</label>
+      <input
+        type="text"
+        id="typeInput"
+        placeholder="Enter Bus Type"
+        value={filters.type}
+        onChange={(e) => setFilters({ ...filters, type: e.target.value })}
+      />
+    </Col>
+    <Col lg={3} sm={24}>
+      <div className="d-flex gap-2">
+        <button className="primary-btn" onClick={() => getBuses()}>
+          Filter
+        </button>
+      </div>
+    </Col>
+    <Col lg={3} sm={24}>
+      <div className="d-flex gap-2">
+        <button
+          className="outlined px-3"
+          onClick={() =>
+            setFilters({
+              from: "",
+              to: "",
+              journeyDate: "",
+            })
+          }>
+          Clear
+        </button>
+      </div>
+    </Col>
+  </Row>
+</div>
+
         <div>
           <Row gutter={[15, 15]}>
             {buses
