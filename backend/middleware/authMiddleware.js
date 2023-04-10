@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+
+//check whether the generated token is valid or not 
 module.exports=(req,res,next)=>{
 
     try {

@@ -52,7 +52,16 @@ router.post("/delete-bus",authMiddleware,async(req,res)=>{
 
 router.post("/get-all-buses",authMiddleware,async(req,res)=>{
     try {
+        //req.body.from = {$regex:/req.body.from/i};
+        //req.body.to = {$regex:/req.body.to/i};
         const buses = await Bus.find(req.body);
+        if (!buses) {
+            return res.send({
+                message: "No buses found",
+                success: false,
+                data: null,
+            });
+        }
         return res.status(200).send({
             success:true,
             message:"Buses fetched successfully",
