@@ -67,7 +67,7 @@ function Home() {
 
 
   return (
-    <div>
+    <><div>
       <Carousel autoplay effect="fade" className="Carousel">
         <div>
           <img src={require("../images/car1.png")} alt="" />
@@ -80,39 +80,37 @@ function Home() {
         </div>
       </Carousel>
       <div className="tkt">
-        <div className="my-3 py-1 ticketbox" >
+        <div className="my-3 py-1 ticketbox">
           <Row gutter={[10, 10]} align="center">
             <Col lg={24}>
               <h1>Book Your Ticket</h1>
             </Col>
             <Col lg={7} sm={24}>
+              <label htmlFor="fromInput"><i class="ri-map-pin-2-fill"></i>From</label>
               <input
                 type="text"
-                placeholder="From"
+                placeholder="Choose your source"
                 value={filters.from}
-                onChange={(e) => setFilters({ ...filters, from: e.target.value })}
-              />
+                onChange={(e) => setFilters({ ...filters, from: e.target.value })} />
             </Col>
             <Col lg={7} sm={24}>
+              <label htmlFor="toInput"><i class="ri-map-pin-2-fill"></i>To</label>
               <input
                 type="text"
-                placeholder="To"
+                placeholder="Choose your destination"
                 value={filters.to}
-                onChange={(e) => setFilters({ ...filters, to: e.target.value })}
-              />
+                onChange={(e) => setFilters({ ...filters, to: e.target.value })} />
             </Col>
             <Col lg={7} sm={24}>
+              <label htmlFor="dateInput"><i class="ri-calendar-line"></i>Date</label>
               <input
                 type="date"
                 placeholder="Date"
                 value={filters.journeyDate}
-                onChange={(e) =>
-                  setFilters({ ...filters, journeyDate: e.target.value })
-                }
-              />
+                onChange={(e) => setFilters({ ...filters, journeyDate: e.target.value })} />
             </Col>
             <Col lg={3} sm={24}>
-              <div className="d-flex gap-2">
+              <div className="d-flex gap-2 searchbtn">
                 <button className="primary-btn" onClick={() => getBuses()}>
                   Search
                 </button>
@@ -122,23 +120,20 @@ function Home() {
         </div>
       </div>
       <div>
-        
-        <Row gutter={[15, 15]} className="businfo">
 
-          
-          
+        {/* <Row gutter={[15, 15]} className="businfo">
+
+
+
           <Col lg={3} sm={24} className="filterin">
             <input
               type="text"
               placeholder="Type"
               value={filters.type}
-              onChange={(e) =>
-                setFilters({ ...filters, type: e.target.value })
-              }
-            />
+              onChange={(e) => setFilters({ ...filters, type: e.target.value })} />
           </Col>
-          </Row>
-          <Row>
+        </Row>
+        <Row>
           <Col lg={3} sm={24} className="filterin">
             <div className="d-flex gap-2">
               <button className="primary-btn" onClick={() => getBuses()}>
@@ -146,18 +141,17 @@ function Home() {
               </button>
             </div>
           </Col>
-          </Row>
-          {buses
-            .filter((bus) => bus.status === "Yet To Start")
-            .map((bus) => (
-              <Col lg={16} xs={24} sm={24} className="businformation">
-                <Bus bus={bus} />
-              </Col>
-            ))
-          }
-          
-        
-        
+        </Row> */}
+        {buses
+          .filter((bus) => bus.status === "Yet To Start")
+          .map((bus) => (
+            <Col lg={16} xs={24} sm={24} className="businformation">
+              <Bus bus={bus} />
+            </Col>
+          ))}
+
+
+
       </div>
 
 
@@ -187,7 +181,7 @@ function Home() {
           style={{
             width: 240,
           }}
-          cover={<img alt="example" src={require("../images/Blue Animated Travel to Dubai Instagram Post (260 × 400 px).gif")} />}
+          cover={<img alt="example" src={require("../images/travelcard2.gif")} />}
         >
         </Card>
         <Card className="card3"
@@ -195,14 +189,23 @@ function Home() {
           style={{
             width: 240,
           }}
-          cover={<img alt="example" src={require("../images/Blue Animated Travel to Dubai Instagram Post (260 × 400 px).gif")} />}
+          cover={<img alt="example" src={require("../images/travelcard3.gif")} />}
         >
         </Card>
 
       </div>
 
 
-    </div>
+    </div><div className="partners">
+        <div className="partnersh1">
+          <h1>Partners</h1>
+        </div>
+        <div className="partnershimg">
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/Karnataka-Tourism-694x235-1-1-1.png")} alt="" />
+          <img style={{ width: "100px", padding: "10px" }} src={require("../images/KSRTC_Logo.png")} alt="" />
+        </div>
+
+      </div></>
 
   );
 }

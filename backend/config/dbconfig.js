@@ -1,3 +1,5 @@
+// this file is to connect mongodb 
+
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
