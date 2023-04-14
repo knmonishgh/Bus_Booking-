@@ -3,7 +3,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const Booking = require("../models/bookingsModel");
 const Bus = require("../models/busModel");
 const stripe = require("stripe")(process.env.stripe_key);
-const { v4: uuidv4 } = require("uuid");
+import { v4 as uuidv4 } from 'uuid';
 
 // book a seat
 
@@ -40,7 +40,7 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
       email: token.email,
       source: token.id,
     });
-    const payment = await stripe.paymentIntent.create(
+    const payment = await stripe.paymentIntents.create(
       {
         amount: amount,
         currency: "inr",
@@ -56,7 +56,7 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
       res.status(200).send({
         message: "Payment successful",
         data: {
-          transactionId: payment.source.id,
+          transactionId: payment.id,
         },
         success: true,
       });
