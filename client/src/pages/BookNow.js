@@ -57,7 +57,7 @@ function BookNow() {
       dispatch(ShowLoading());
       const response = await axiosInstance.post("/api/bookings/make-payment", {
         token,
-        amount: selectedSeats.length * bus.fare * 100,
+        amount: selectedSeats.length * bus.fare,
       });
       dispatch(HideLoading());
       if (response.data.success) {

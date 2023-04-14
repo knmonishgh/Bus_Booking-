@@ -40,7 +40,7 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
       email: token.email,
       source: token.id,
     });
-    const payment = await stripe.charges.create(
+    const payment = await stripe.paymentIntent.create(
       {
         amount: amount,
         currency: "inr",
