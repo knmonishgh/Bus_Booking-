@@ -59,6 +59,12 @@ function Register() {
 
     const [form] = Form.useForm()
 
+    /* const handleReset = () => {
+        form.resetFields();
+    }; 
+    <button className='secondary-btn' type='reset'>Reset</button>
+    to reset fields*/ 
+
     return (
         <div className={styles.loginbox}>
                     <div className={styles.login}>

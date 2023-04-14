@@ -41,7 +41,7 @@ function Bus({ bus }) {
 
         <h1 className="text-lg secondary-text" onClick={()=>{
             navigate(`/book-now/${bus._id}`)
-        }}>Book Now</h1>
+        }}><button className="booknow">Book Now</button></h1>
       </div>
     </div>
   );
