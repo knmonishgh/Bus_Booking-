@@ -1,8 +1,9 @@
-import { Col, message, Row } from "antd";
+import { Col, message, Row, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import SeatSelection from "../components/SeatSelection";
+import PassengerDetails from "../components/PassengerDetails";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import StripeCheckout from "react-stripe-checkout";
@@ -13,6 +14,9 @@ function BookNow() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [bus, setBus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+
   const getBus = async () => {
     try {
       dispatch(ShowLoading());
@@ -51,6 +55,7 @@ function BookNow() {
       message.error(error.message);
     }
   };
+
 
   const onToken = async (token) => {
     try {

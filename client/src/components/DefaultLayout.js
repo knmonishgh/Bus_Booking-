@@ -63,6 +63,7 @@ function DefaultLayout({ children }) {
     ]
     const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
     const activeRoute = window.location.pathname;
+    
     return (
         <div className='layout-parent'>
             <div className='body'>

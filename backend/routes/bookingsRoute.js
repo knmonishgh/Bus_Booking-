@@ -3,7 +3,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const Booking = require("../models/bookingsModel");
 const Bus = require("../models/busModel");
 const stripe = require("stripe")(process.env.stripe_key);
-import { v4 as uuidv4 } from 'uuid';
+const { v4: uuidv4 } = require("uuid");
 
 // book a seat
 
