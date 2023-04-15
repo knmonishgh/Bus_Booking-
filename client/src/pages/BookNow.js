@@ -1,16 +1,22 @@
-import { Col, message, Row } from "antd";
+import { Col, message, Row, Modal } from "antd";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import {  useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import SeatSelection from "../components/SeatSelection";
+import PassengerDetails from "../components/PassengerDetails";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import StripeCheckout from "react-stripe-checkout";
 
 function BookNow() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const params = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [bus, setBus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+
   const getBus = async () => {
     try {
       dispatch(ShowLoading());
@@ -29,16 +35,18 @@ function BookNow() {
     }
   };
 
-  const bookNow = async () => {
+  const bookNow = async (transactionId) => {
     try {
       dispatch(ShowLoading());
       const response = await axiosInstance.post("/api/bookings/book-seat", {
         bus: bus._id,
         seats: selectedSeats,
+        transactionId,
       });
       dispatch(HideLoading());
       if (response.data.success) {
         message.success(response.data.message);
+        navigate("/bookings");
       } else {
         message.error(response.data.message);
       }
@@ -48,7 +56,26 @@ function BookNow() {
     }
   };
 
-  
+
+  const onToken = async (token) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/bookings/make-payment", {
+        token,
+        amount: selectedSeats.length * bus.fare,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+        bookNow(response.data.data.transactionId);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
   useEffect(() => {
     getBus();
   }, []);
@@ -68,7 +95,7 @@ function BookNow() {
                 Jourey Date : {bus.journeyDate}
               </p>
               <p className="text-md">
-                Fare : $ {bus.fare} /-
+                Fare : ₹ {bus.fare} /-
               </p>
               <p className="text-md">
                 Departure Time : {bus.departure}
@@ -94,15 +121,22 @@ function BookNow() {
               </h1>
               <hr />
 
-              
+              <StripeCheckout
+                billingAddress
+                token={onToken}
+                amount={bus.fare * selectedSeats.length * 100}
+                currency="INR"
+                stripeKey="pk_test_51MwjQTSGb14HjORSI1vy1pXBSKfTRft1EwhGDAVUsWaXqQkbmHaSnrcjZX3s1X2Elw2C0SufstqQBzFAOKWGBjUO00A2SE9Jh8"
+              >
                 <button
-                  className="secondary-btn mt-3"
-                  onClick={bookNow}
-                  disabled={selectedSeats.length===0}
+                  className={`primary-btn ${
+                    selectedSeats.length === 0 && "disabled-btn"
+                  }`}
+                  disabled={selectedSeats.length === 0}
                 >
                   Book Now
                 </button>
-              
+              </StripeCheckout>
             </div>
           </Col>
           <Col lg={12} xs={24} sm={24}>

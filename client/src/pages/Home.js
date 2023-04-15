@@ -20,7 +20,7 @@ function Home() {
       return;
     }
 
-    const tempFilters = {};
+    const tempFilters = {}; //removing values
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {
         tempFilters[key] = filters[key];

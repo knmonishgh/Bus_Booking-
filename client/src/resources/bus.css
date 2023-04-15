@@ -38,3 +38,11 @@
   color: black !important;
 }
 
+.booknow{
+  background-color: rgb(244, 165, 86);
+  color: aliceblue;
+}
+
+.booknow:hover{
+  background-color: green;
+}
