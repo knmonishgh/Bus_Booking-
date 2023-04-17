@@ -56,64 +56,66 @@ function BusForm({
       <Form layout="vertical" onFinish={onFinish} initialValues={selectedBus}>
         <Row gutter={[10, 10]}>
           <Col lg={24} xs={24}>
-            <Form.Item label="Bus Name" name="name">
-              <input type="text" />
+            <Form.Item label="Bus Name" name="name" required>
+              <input type="text" required />
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
-            <Form.Item label="Bus Number" name="number">
-              <input type="text" />
+            <Form.Item label="Bus Number" name="number" required>
+              <input type="text" required />
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
-            <Form.Item label="Capacity" name="capacity">
-              <input type="text" />
+            <Form.Item label="Capacity" name="capacity" required>
+              <input type="text" required />
             </Form.Item>
           </Col>
 
           <Col lg={12} xs={24}>
-            <Form.Item label="From" name="from">
-              <input type="text" />
+            <Form.Item label="From" name="from" required>
+              <input type="text" required />
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
-            <Form.Item label="To" name="to">
-              <input type="text" />
+            <Form.Item label="To" name="to" required>
+              <input type="text" required />
             </Form.Item>
           </Col>
 
           <Col lg={8} xs={24}>
-            <Form.Item label="Journey Date" name="journeyDate">
-              <input type="date" />
+            <Form.Item label="Journey Date" name="journeyDate" required>
+              <input type="date" required />
             </Form.Item>
           </Col>
           <Col lg={8} xs={24}>
-            <Form.Item label="Departure" name="departure">
-              <input type="time" />
+            <Form.Item label="Departure" name="departure" required>
+              <input type="time" required />
             </Form.Item>
           </Col>
           <Col lg={8} xs={24}>
-            <Form.Item label="Arrival" name="arrival">
-              <input type="time" />
+            <Form.Item label="Arrival" name="arrival" required>
+              <input type="time" required />
             </Form.Item>
           </Col>
 
           <Col lg={12} xs={24}>
-            <Form.Item label="Type" name="type">
+            <Form.Item label="Type" name="type" required>
               <select name="" id="">
-                <option value="AC">AC</option>
-                <option value="Non-AC">Non-AC</option>
+                <option value="AC Seater">AC Seater</option>
+                <option value="AC Sleeper">AC Sleeper</option>
+                <option value="Non-AC Seater">Non-AC Seater</option>
+                <option value="Non-AC Sleeper">Non-AC Sleeper</option>
               </select>
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
-            <Form.Item label="Fare" name="fare">
-              <input type="text" />
+            <Form.Item label="Fare" name="fare" required>
+              <input type="text" required />
             </Form.Item>
           </Col>
 
           <Col lg={12} xs={24}>
-            <Form.Item label="Status" name="status">
+            <Form.Item label="Status" name="status" required>
               <select name="" id="">
                 <option value="Yet To Start">Yet To Start</option>
                 <option value="Running">Running</option>
