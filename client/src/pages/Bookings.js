@@ -29,6 +29,7 @@ function Bookings() {
                         key: booking._id,
                     };
                 });
+
                 setBookings(mappedData);
             } else {
                 message.error(response.data.message);

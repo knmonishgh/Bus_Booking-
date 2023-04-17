@@ -7,7 +7,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 
 
-
 router.post("/register", async (req, res) => {
     try {
         const existingUser = await User.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] });

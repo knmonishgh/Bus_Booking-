@@ -19,11 +19,13 @@ function Login() {
             if (response.data.success) {
                 message.success(response.data.message);
                 localStorage.setItem("token", response.data.data);
-                navigate("/");
-
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 message.error(response.data.message);
             }
+            
         } catch (error) {
             dispatch(HideLoading());
             message.error(error.message)
