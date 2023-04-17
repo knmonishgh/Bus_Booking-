@@ -53,9 +53,6 @@ function Login() {
                             </Form.Item>
                             <br />
 
-                            <div className='d-flex justify-content-between align-items-center'>
-                                <Link className="link1" to="/login">Forget Password?</Link>
-                            </div>
                             <hr/>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <Link to="/register" >Click here to Register</Link>
