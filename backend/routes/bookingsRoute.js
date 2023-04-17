@@ -96,7 +96,6 @@ router.post("/get-bookings-by-user-id", authMiddleware, async (req, res) => {
     });
   }
 });
-
 // get all bookings
 router.post("/get-all-bookings", authMiddleware, async (req, res) => {
   try {
@@ -114,6 +113,5 @@ router.post("/get-all-bookings", authMiddleware, async (req, res) => {
     });
   }
 });
-    
 
 module.exports = router;

@@ -1,9 +1,9 @@
 import { message, Modal, Table } from "antd";
-import axios from "axios";
 import moment from "moment";
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import BusForm from "../components/Busform";
+import BusForm from "../components/BusForm";
 import PageTitle from "../components/Pagetitle";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
@@ -20,11 +20,10 @@ function Bookings() {
             dispatch(ShowLoading());
             
             const response = await axiosInstance.post(
-                "/api/bookings/get-bookings-by-user-id",
-                {}
-            );
+                "/api/bookings/get-bookings-by-user-id",{});
             dispatch(HideLoading());
-            if (response.data.success) {
+            if (response.data.success) 
+            {
                 const mappedData = response.data.data.map((booking) => {
                     return {
                         ...booking,
@@ -32,6 +31,7 @@ function Bookings() {
                         key: booking._id,
                     };
                 });
+
                 setBookings(mappedData);
             } else {
                 message.error(response.data.message);
@@ -152,7 +152,7 @@ function Bookings() {
                         <hr />
                         <p>
                             <span>Seat Number(s) : </span> <br />
-                            {selectedBooking.seats}
+                            {selectedBooking.seats.join(", ")}
                         </p>
                         <hr />
                         <p>

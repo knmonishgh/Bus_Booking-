@@ -7,7 +7,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 
 
-
 router.post("/register", async (req, res) => {
     try {
         const existingUser = await User.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] });
@@ -44,6 +43,10 @@ router.post("/register", async (req, res) => {
 
     }
 });
+
+
+
+
 
 router.post("/login", async (req, res) => {
     try {
@@ -88,43 +91,29 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.post("/logout",authMiddleware,async (req,res)=>{
-    try{
-        req.User.tokens = req.User.tokens.filter((token)=>{
-            return token.token !== req.token;
-        });
 
-        await req.User.save();
-        res.send();
-    }
-    catch(e){
-        res.status(500).send();
-    }
-});
 
 // to validate token of user to enter into home page
-router.post("/get-user-by-id", authMiddleware, async(req,res)=>{
+//get by user id
+router.post("/get-user-by-id", authMiddleware, async (req, res) => {
     try {
-        const user = await User.findById(req.body.userId);
-        res.send({
-            message:"User fetched successfully",
-            success:true,
-            data:user
-        });
-
+      const user = await User.findById(req.body.userId);
+      res.send({
+        message: "User fetched successfully",
+        success: true,
+        data: user,
+      });
     } catch (error) {
-        res.send({
-            message:error.message,
-            success:false,
-            data:null
-        });
-        
+      res.send({
+        message: error.message,
+        success: false,
+        data: null,
+      });
     }
-})
+  });
 
 
 
 
 
-
-module.exports = router
+module.exports = router;
