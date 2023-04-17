@@ -59,7 +59,7 @@ function Login() {
                                 <button className='secondary-btn' type='submit'>Login</button>
 
                             </div>
-                            <hr or/>
+                            <hr />
                             <div>
                                 <button className={styles.googleBTN} type="submit">
                                     <i className="ri-google-fill"></i> Sign up with Google
