@@ -1,6 +1,6 @@
 import { message, Modal, Table } from "antd";
 import moment from "moment";
-import axois from "axios"
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import BusForm from "../components/BusForm";
@@ -18,11 +18,10 @@ function Bookings() {
         try {
             dispatch(ShowLoading());
             const response = await axiosInstance.post(
-                "/api/bookings/get-bookings-by-user-id",
-                {}
-            );
+                "/api/bookings/get-bookings-by-user-id",{});
             dispatch(HideLoading());
-            if (response.data.success) {
+            if (response.data.success) 
+            {
                 const mappedData = response.data.data.map((booking) => {
                     return {
                         ...booking,

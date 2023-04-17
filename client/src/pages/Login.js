@@ -53,13 +53,18 @@ function Login() {
                             </Form.Item>
                             <br />
 
-                            <hr/>
+                            <hr />
                             <div className='d-flex justify-content-between align-items-center'>
                                 <Link to="/register" >Click here to Register</Link>
                                 <button className='secondary-btn' type='submit'>Login</button>
+
                             </div>
-
-
+                            <hr or/>
+                            <div>
+                                <button className={styles.googleBTN} type="submit">
+                                    <i className="ri-google-fill"></i> Sign up with Google
+                                </button>
+                            </div>
                         </Form>
                     </div>
                 </div>
