@@ -3,7 +3,7 @@ import { Col, Form, message, Modal, Row } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
-
+import moment from "moment";
 
 function BusForm({
   showBusForm,
@@ -89,18 +89,21 @@ function BusForm({
           </Col>
           <Col lg={8} xs={24}>
             <Form.Item label="Departure" name="departure">
-              <input type="text" />
+              <input type="time" />
             </Form.Item>
           </Col>
           <Col lg={8} xs={24}>
             <Form.Item label="Arrival" name="arrival">
-              <input type="text" />
+              <input type="time" />
             </Form.Item>
           </Col>
 
           <Col lg={12} xs={24}>
             <Form.Item label="Type" name="type">
-            <input type="text" />
+              <select name="" id="">
+                <option value="AC">AC</option>
+                <option value="Non-AC">Non-AC</option>
+              </select>
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>

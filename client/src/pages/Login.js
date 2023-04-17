@@ -2,16 +2,20 @@ import React from 'react'
 import { Form, Input, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axois from "axios"
-
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import styles from "../resources/login.module.css"
 
 
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const onFinish = async (values) => {
         try {
-            const response = await axois.post("/api/users/login", values)
+            dispatch(ShowLoading());
+            const response = await axois.post("/api/users/login", values);
+            dispatch(HideLoading());
             if (response.data.success) {
                 message.success(response.data.message);
                 localStorage.setItem("token", response.data.data);
@@ -21,6 +25,7 @@ function Login() {
                 message.error(response.data.message);
             }
         } catch (error) {
+            dispatch(HideLoading());
             message.error(error.message)
         }
     };

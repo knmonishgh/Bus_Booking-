@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Pagetitle from '../../components/Pagetitle'
-import Busform from '../../components/Busform';
+import Busform from '../../components/BusForm';
 
 import "../../resources/navigation.css"
 
