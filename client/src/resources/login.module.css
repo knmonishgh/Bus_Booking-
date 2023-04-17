@@ -57,3 +57,20 @@
 .link1:hover{
     color:navy;
 }
+
+.googleBTN{
+    padding: 2px;
+    width: 100%;
+    border: 0px none;
+    background-color: #797389;
+    border-radius: 50px;
+    border-radius: .5rem;
+    color:white;
+    transition: all 0.4s;
+}
+
+.googleBTN:hover{
+    transition: all 0.4s;
+    background-color: var(--secondary);
+    color: black;
+}

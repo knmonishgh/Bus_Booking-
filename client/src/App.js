@@ -11,12 +11,16 @@ import AdminBuses from './pages/Admin/AdminBuses';
 import AdminUsers from './pages/Admin/AdminUsers';
 import BookNow from "./pages/BookNow";
 import Bookings from './pages/Bookings';
+import Loader from "./components/Loader";
+import { useSelector } from "react-redux";
 
 
 function App() {
   //<Route path="/dashboard" element={<dashboard/>} />
+  const { loading } = useSelector((state) => state.alerts);
   return (
     <div>
+      {loading && <Loader />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />

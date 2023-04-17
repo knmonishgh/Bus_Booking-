@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Pagetitle from '../../components/Pagetitle'
-import Busform from '../../components/Busform';
+import Busform from '../../components/BusForm';
+import moment from 'moment';
 
 import "../../resources/navigation.css"
 
@@ -17,7 +18,7 @@ function AdminBuses() {
   const [showBusForm, setShowBusForm] = React.useState(false);
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
-
+  
   const getBuses = async () => {
 
     try {
@@ -79,6 +80,7 @@ function AdminBuses() {
     {
       title: "Journey Date",
       dataIndex: "journeyDate",
+      render: (journeyDate) => moment(journeyDate).format("DD-MM-YYYY")
       
     },
     {

@@ -2,25 +2,32 @@ import React from 'react'
 import { Form, Input, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axois from "axios"
-
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import styles from "../resources/login.module.css"
 
 
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const onFinish = async (values) => {
         try {
-            const response = await axois.post("/api/users/login", values)
+            dispatch(ShowLoading());
+            const response = await axois.post("/api/users/login", values);
+            dispatch(HideLoading());
             if (response.data.success) {
                 message.success(response.data.message);
                 localStorage.setItem("token", response.data.data);
-                navigate("/");
-
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 message.error(response.data.message);
             }
+            
         } catch (error) {
+            dispatch(HideLoading());
             message.error(error.message)
         }
     };
@@ -48,13 +55,18 @@ function Login() {
                             </Form.Item>
                             <br />
 
-                            <hr/>
+                            <hr />
                             <div className='d-flex justify-content-between align-items-center'>
                                 <Link to="/register" >Click here to Register</Link>
                                 <button className='secondary-btn' type='submit'>Login</button>
+
                             </div>
-
-
+                            <hr />
+                            <div>
+                                <button className={styles.googleBTN} type="submit">
+                                    <i className="ri-google-fill"></i> Sign up with Google
+                                </button>
+                            </div>
                         </Form>
                     </div>
                 </div>

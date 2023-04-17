@@ -8,7 +8,6 @@ import Footer from './footer';
 
 function DefaultLayout({ children }) {
     const navigate = useNavigate();
-    //const [collapsed, setCollapsed] = React.useState(false);
     const { user } = useSelector(state => state.users)
     const userMenu = [
         {
@@ -64,14 +63,17 @@ function DefaultLayout({ children }) {
     const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
     const activeRoute = window.location.pathname;
     
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        window.location.reload();
+    }
+    
     return (
         <div className='layout-parent'>
             <div className='body'>
                 <div className='header'>
                     <div className='subheader'>
-                    <img src={require("../images/BUSLOGO.png")} alt="logo" />
-                        {/* <h3 className="role">Name : {user?.name} <br />Role : {user?.isAdmin ? 'Admin' : 'User'}</h3> */}
-                        {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Redbus_logo.jpg/1200px-Redbus_logo.jpg" alt="" style={{ width: '100px', }}></img> */}
+                        <img src={require("../images/BUSLOGO.png")} alt="logo" />
                     </div>
 
                     <div className='d-flex flex-row gap-3 justify-content-end menu nav'>
@@ -86,8 +88,7 @@ function DefaultLayout({ children }) {
                                         <span
                                             onClick={() => {
                                                 if (item.path === "/logout") {
-                                                    localStorage.removeItem("token");
-                                                    navigate("/login");
+                                                    handleLogout();
                                                 } else {
                                                     navigate(item.path);
                                                 }
