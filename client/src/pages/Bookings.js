@@ -14,9 +14,11 @@ function Bookings() {
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [bookings, setBookings] = useState([]);
     const dispatch = useDispatch();
+    
     const getBookings = async () => {
         try {
             dispatch(ShowLoading());
+            
             const response = await axiosInstance.post(
                 "/api/bookings/get-bookings-by-user-id",
                 {}
@@ -102,6 +104,7 @@ function Bookings() {
 
     useEffect(() => {
         getBookings();
+        
     }, []);
 
     const componentRef = useRef();
