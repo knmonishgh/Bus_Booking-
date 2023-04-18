@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 
         //to generate  jwt token : encrypted from of any data 
         const token = jwt.sign({ userId: userExists._id }, "test", {
-            expiresIn: "1d"
+            expiresIn: "1h"
         });
 
         res.send({
@@ -112,7 +112,36 @@ router.post("/get-user-by-id", authMiddleware, async (req, res) => {
     }
   });
 
-
+// get all users
+router.post("/get-all-users", authMiddleware, async (req, res) => {
+    try {
+      const users = await User.find({});
+      res.send({
+        message: "Users fetched successfully",
+        success: true,
+        data: users,
+      });
+    } catch (error) {
+      res.send({
+        message: error.message,
+        success: false,
+        data: null,
+      });
+    }
+  });
+  
+//delete user
+  router.post("/delete-user",authMiddleware,async(req,res)=>{
+    try {
+        await User.findByIdAndDelete(req.body._id);
+        return res.status(200).send({
+            success:true,
+            message:"User deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).send({success:false,message:error.message});
+    }
+});
 
 
 

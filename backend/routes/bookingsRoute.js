@@ -2,6 +2,7 @@ const router = require("express").Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const Booking = require("../models/bookingsModel");
 const Bus = require("../models/busModel");
+const User= require("../models/usersmodel");
 const stripe = require("stripe")(process.env.stripe_key);
 const { v4: uuidv4 } = require("uuid");
 
@@ -111,6 +112,20 @@ router.post("/get-all-bookings", authMiddleware, async (req, res) => {
       data: error,
       success: false,
     });
+  }
+});
+
+
+//cancel bookings
+router.post("/cancel-ticket",authMiddleware,async(req,res)=>{
+  try {
+      await Booking.findByIdAndDelete(req.body._id).populate("bus").populate("user");
+      return res.status(200).send({
+          success:true,
+          message:"Ticket(s) cancelled successfully"
+      });
+  } catch (error) {
+      res.status(500).send({success:false,message:error.message});
   }
 });
 

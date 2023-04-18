@@ -1,24 +1,25 @@
 import React from 'react'
-import { Form, Input,message } from 'antd'
+import { Form, Input, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axois from "axios"
 import styles from "../resources/login.module.css"
 import { useDispatch } from "react-redux";
+import { UserOutlined, EyeTwoTone, EyeInvisibleOutlined, PhoneOutlined, MailOutlined,LockOutlined } from '@ant-design/icons';
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
 
 function Register() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const onFinish = async (values) => {
+    const onFinish = async (values) => { 
         try {
             dispatch(ShowLoading());
-            const response = await axois.post("/api/users/register",values);
+            const response = await axois.post("/api/users/register", values);
             dispatch(HideLoading());
-            if(response.data.success){
+            if (response.data.success) {
                 message.success(response.data.message);
                 navigate("/login");
-                
-            }else{
+
+            } else {
                 message.error(response.data.message);
             }
         } catch (error) {
@@ -69,33 +70,45 @@ function Register() {
         form.resetFields();
     }; 
     <button className='secondary-btn' type='reset'>Reset</button>
-    to reset fields*/ 
+    to reset fields*/
 
     return (
         <div className={styles.loginbox}>
-                    <div className={styles.login}>
-                        <div className={styles.logo}>
-                            <img src={require("../images/BUSLOGO.png")} alt="logo" />
-                        </div>
+            <div className={styles.login}>
+                <div className={styles.logo}>
+                    <img src={require("../images/BUSLOGO.png")} alt="logo" />
+                </div>
                 <h1 className='text-lg' >TravelSwift - Register</h1>
                 <hr />
                 <Form layout="vertical" onFinish={onFinish} form={form}>
-                    <Form.Item label="Full Name" name="name" rules={[{ validator: validateName }]}>
-                        <Input type="text" required />
+                    <Form.Item label="Full Name" name="name" rules={[{ validator: validateName }]} required>
+                        <Input prefix={<UserOutlined />} placeholder=" Enter Full Name " type="text" required />
                     </Form.Item>
-                    <Form.Item label="Phone" name="phone" rules={[{ validator: validatePhone }]}>
-                        <Input type="text" required />
+                    <Form.Item label="Phone" name="phone" rules={[{ validator: validatePhone }]} required>
+                        <Input prefix={<PhoneOutlined />} placeholder=" Enter a valid Phone Number " type="text" required />
                     </Form.Item>
-                    <Form.Item label="Email" name="email" rules={[{ validator: validateEmail }]}>
-                        <Input type="text" required />
+                    <Form.Item label="Email" name="email" rules={[{ validator: validateEmail }]} required>
+                        <Input prefix={<MailOutlined />} placeholder=" Enter a valid Email " type="text" required />
                     </Form.Item>
-                    <Form.Item label="Password" name="password" rules={[{ validator: validatePassword }]}>
-                        <Input type="password" required />
+                    <Form.Item label="Password" name="password" rules={[{ validator: validatePassword }]} required>
+                        <Input.Password prefix={<LockOutlined />}
+                            placeholder="Enter Password"
+                            iconRender={(visible) =>
+                                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                            }
+                            required
+                        />
                     </Form.Item>
-                    <Form.Item label="Confirm Password" name="confirmPassword" rules={[{ validator: validateConfirmPassword }]}>
-                        <Input type="password" required />
+                    <Form.Item label="Confirm Password" name="confirmPassword" rules={[{ validator: validateConfirmPassword }]} required>
+                        <Input.Password prefix={<LockOutlined />}
+                            placeholder="Enter Password"
+                            iconRender={(visible) =>
+                                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                            }
+                            required
+                        />
                     </Form.Item>
-                    <hr/>
+                    <hr />
                     <div className='d-flex justify-content-between align-items-center'>
                         <Link to="/login">Click here to Login</Link>
                         <button className='secondary-btn' type='submit'>Register</button>

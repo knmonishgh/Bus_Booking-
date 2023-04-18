@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axois from "axios"
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import { EyeTwoTone, EyeInvisibleOutlined, MailOutlined,LockOutlined } from '@ant-design/icons';
 import styles from "../resources/login.module.css"
 
 
@@ -25,7 +26,7 @@ function Login() {
             } else {
                 message.error(response.data.message);
             }
-            
+
         } catch (error) {
             dispatch(HideLoading());
             message.error(error.message)
@@ -47,11 +48,17 @@ function Login() {
                         <h1 className='text-lg'> Login</h1>
                         <hr />
                         <Form layout="vertical" onFinish={onFinish} form={form}>
-                            <Form.Item label="Email" name="email">
-                                <Input type="text" required />
+                            <Form.Item label="Email" name="email" required>
+                            <Input prefix={<MailOutlined />} placeholder=" Enter a valid Email " type="text" required />
                             </Form.Item>
-                            <Form.Item label="Password" name="password">
-                                <Input type="password" required />
+                            <Form.Item label="Password" name="password" required>
+                                <Input.Password
+                                    placeholder="Enter Password" prefix={<LockOutlined />}
+                                    iconRender={(visible) =>
+                                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                                    }
+                                    required
+                                />
                             </Form.Item>
                             <br />
 
