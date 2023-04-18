@@ -1,9 +1,9 @@
 import { Col, message, Row, Modal } from "antd";
+import { Form, Input, Button } from 'antd';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import SeatSelection from "../components/SeatSelection";
-import PassengerDetails from "../components/PassengerDetails";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import StripeCheckout from "react-stripe-checkout";
@@ -14,7 +14,9 @@ function BookNow() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [bus, setBus] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [form] = Form.useForm();
+  const [visible, setVisible] = useState(false);
+
 
 
   const getBus = async () => {
@@ -80,7 +82,7 @@ function BookNow() {
     getBus();
   }, []);
   return (
-    <div>
+    <><div>
       {bus && (
         <Row className="mt-3" gutter={[30, 30]}>
           <Col lg={12} xs={24} sm={24}>
@@ -129,9 +131,7 @@ function BookNow() {
                 stripeKey="pk_test_51MwjQTSGb14HjORSI1vy1pXBSKfTRft1EwhGDAVUsWaXqQkbmHaSnrcjZX3s1X2Elw2C0SufstqQBzFAOKWGBjUO00A2SE9Jh8"
               >
                 <button
-                  className={`primary-btn ${
-                    selectedSeats.length === 0 && "disabled-btn"
-                  }`}
+                  className={`primary-btn ${selectedSeats.length === 0 && "disabled-btn"}`}
                   disabled={selectedSeats.length === 0}
                 >
                   Book Now
@@ -143,12 +143,51 @@ function BookNow() {
             <SeatSelection
               selectedSeats={selectedSeats}
               setSelectedSeats={setSelectedSeats}
-              bus={bus}
-            />
+              bus={bus} />
           </Col>
         </Row>
       )}
-    </div>
+    </div><>
+        <Button onClick={() => setVisible(true)}>Open Form</Button>
+        <Form
+          form={Form}
+          name="myForm"
+          visible={visible}
+          onFinish={bookNow}
+        >
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your name!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your email!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </></>
+
+
   );
 }
 
