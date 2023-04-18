@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+
+const passengerschema = new mongoose.Schema({
+    name: String,
+    age:String,
+
+})
+
 const bookingSchema = new mongoose.Schema(
   {
     bus: {
@@ -20,6 +27,7 @@ const bookingSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    passenger:[passengerschema],
   },
   {
     timestamps: true,
