@@ -13,7 +13,7 @@ import BookNow from "./pages/BookNow";
 import Bookings from './pages/Bookings';
 import Loader from "./components/Loader";
 import { useSelector } from "react-redux";
-
+import AdminBookings from './pages/Admin/AdminBookings';
 
 function App() {
   //<Route path="/dashboard" element={<dashboard/>} />
@@ -27,6 +27,7 @@ function App() {
           <Route path="/admin" element={<ProtectedRoute><AdminHome /></ProtectedRoute>} />
           <Route path="/admin/buses" element={<ProtectedRoute><AdminBuses /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
+          <Route path="/admin/bookings" element={<ProtectedRoute><AdminBookings /></ProtectedRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/book-now/:id" element={<ProtectedRoute><BookNow /></ProtectedRoute>}/>

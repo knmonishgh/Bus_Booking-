@@ -41,7 +41,7 @@ router.post("/delete-bus",authMiddleware,async(req,res)=>{
         await Bus.findByIdAndDelete(req.body._id);
         return res.status(200).send({
             success:true,
-            message:"bus deleted successfully"
+            message:"Bus deleted successfully"
         });
     } catch (error) {
         res.status(500).send({success:false,message:error.message});

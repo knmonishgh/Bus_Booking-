@@ -4,8 +4,65 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/authMiddleware');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+require('dotenv').config();
 
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      const existingUser = await User.findOne({ email: profile.emails[0].value });
+      if (existingUser) {
+        done(null, existingUser);
+      } else {
+        const newUser = new User({
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          isAdmin: false
+        });
+        await newUser.save();
+        res.send({
+            message: "user created succesfully",
+            success: true,
+            data: null
+        })
+        done(null, newUser);
+      }
+    } catch (error) {
+      done(error, null);
+    }
+  }
+));
 
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  async (req, res) => {
+    try {
+      const token = jwt.sign({ userId: req.user._id }, process.env.jwt_secret, {
+        expiresIn: '1h'
+      });
+      res.cookie('token', token, { httpOnly: true });
+      res.send({
+        message: "User Logged in successfully",
+        success: true,
+        data: token
+    });
+      res.redirect('/');
+    } catch (error) {
+      res.send({
+        message: error.message,
+        success: false,
+        data: null
+      });
+    }
+  });
 
 router.post("/register", async (req, res) => {
     try {
@@ -73,7 +130,7 @@ router.post("/login", async (req, res) => {
 
         //to generate  jwt token : encrypted from of any data 
         const token = jwt.sign({ userId: userExists._id }, "test", {
-            expiresIn: "1d"
+            expiresIn: "1h"
         });
 
         res.send({
@@ -112,7 +169,36 @@ router.post("/get-user-by-id", authMiddleware, async (req, res) => {
     }
   });
 
-
+// get all users
+router.post("/get-all-users", authMiddleware, async (req, res) => {
+    try {
+      const users = await User.find({});
+      res.send({
+        message: "Users fetched successfully",
+        success: true,
+        data: users,
+      });
+    } catch (error) {
+      res.send({
+        message: error.message,
+        success: false,
+        data: null,
+      });
+    }
+  });
+  
+//delete user
+  router.post("/delete-user",authMiddleware,async(req,res)=>{
+    try {
+        await User.findByIdAndDelete(req.body._id);
+        return res.status(200).send({
+            success:true,
+            message:"User deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).send({success:false,message:error.message});
+    }
+});
 
 
 
