@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Pagetitle from '../../components/Pagetitle'
 import Busform from "../../components/BusForm";
 import moment from 'moment';
+import {Modal} from 'antd';
 
 import "../../resources/navigation.css"
 
@@ -39,34 +40,41 @@ function AdminBuses() {
 
 
   const deleteBus = async (id) => {
-
-    try {
-      dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/buses/delete-bus", {
-        _id: id
-      });
-      dispatch(HideLoading());
-      if (response.data.success) {
-        message.success(response.data.message)
-        getBuses();
-      } else {
-        message.error(response.data.message);
-      }
-    } catch (error) {
-      dispatch(HideLoading());
-      message.error(error.message);
-
-    }
+    Modal.confirm({
+      title: 'Confirm',
+      content: 'Are you sure you want to delete this bus?',
+      onOk: async () => {
+        try {
+          dispatch(ShowLoading());
+          const response = await axiosInstance.post("/api/buses/delete-bus", {
+            _id: id
+          });
+          dispatch(HideLoading());
+          if (response.data.success) {
+            message.success(response.data.message)
+            getBuses();
+          } else {
+            message.error(response.data.message);
+          }
+        } catch (error) {
+          dispatch(HideLoading());
+          message.error(error.message);
+  
+        }
+      },
+      onCancel: () => {},
+    });
   };
+  
 
 
   const columns = [
     {
-      title: "Name",
+      title: "Bus Name",
       dataIndex: "name"
     },
     {
-      title: "Number",
+      title: "Bus Number",
       dataIndex: "number"
     },
     {

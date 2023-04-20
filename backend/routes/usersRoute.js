@@ -6,69 +6,63 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/authMiddleware');
-
+require('dotenv').config();
 
 passport.use(new GoogleStrategy({
-    clientID:'513067274332-u7udvva91ic52gmqlaoei9pt2ppom80p.apps.googleusercontent.com ',
-    clientSecret: "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" ,
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
   },
   async (accessToken, refreshToken, profile, done) => {
-    // find or create user in your database
     try {
-      const user = await User.findOne({ email: profile.emails[0].value });
-      if (user) {
-        done(null, user);
+      const existingUser = await User.findOne({ email: profile.emails[0].value });
+      if (existingUser) {
+        done(null, existingUser);
       } else {
         const newUser = new User({
           name: profile.displayName,
           email: profile.emails[0].value,
-          // you can add more user info from the profile object
+          isAdmin: false
         });
         await newUser.save();
+        res.send({
+            message: "user created succesfully",
+            success: true,
+            data: null
+        })
         done(null, newUser);
       }
     } catch (error) {
-      done(error);
+      done(error, null);
     }
   }
 ));
 
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
-  
-  // deserialize user object from session
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  async (req, res) => {
+    try {
+      const token = jwt.sign({ userId: req.user._id }, process.env.jwt_secret, {
+        expiresIn: '1h'
+      });
+      res.cookie('token', token, { httpOnly: true });
+      res.send({
+        message: "User Logged in successfully",
+        success: true,
+        data: token
     });
+      res.redirect('/');
+    } catch (error) {
+      res.send({
+        message: error.message,
+        success: false,
+        data: null
+      });
+    }
   });
-
-
-  const authenticateUser = (req, res, next) => {
-    passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
-  }
-
-  const handleGoogleCallback = async (req, res, next) => {
-    passport.authenticate('google', { failureRedirect: '/login' })(req, res, async () => {
-      try {
-        // create JWT token for the user
-        const token = jwt.sign({ userId: req.user._id }, "test", {
-          expiresIn: "1d"
-        });
-        // set the JWT token as a cookie in the response
-        res.cookie('jwt', token, { httpOnly: true });
-        res.redirect('/');
-      } catch (error) {
-        next(error);
-      }
-    });
-  }
-
-  router.get('/auth/google', authenticateUser);
-router.get('/auth/google/callback', handleGoogleCallback);
-
 
 router.post("/register", async (req, res) => {
     try {
@@ -136,7 +130,7 @@ router.post("/login", async (req, res) => {
 
         //to generate  jwt token : encrypted from of any data 
         const token = jwt.sign({ userId: userExists._id }, "test", {
-            expiresIn: "1d"
+            expiresIn: "1h"
         });
 
         res.send({
@@ -175,7 +169,36 @@ router.post("/get-user-by-id", authMiddleware, async (req, res) => {
     }
   });
 
-
+// get all users
+router.post("/get-all-users", authMiddleware, async (req, res) => {
+    try {
+      const users = await User.find({});
+      res.send({
+        message: "Users fetched successfully",
+        success: true,
+        data: users,
+      });
+    } catch (error) {
+      res.send({
+        message: error.message,
+        success: false,
+        data: null,
+      });
+    }
+  });
+  
+//delete user
+  router.post("/delete-user",authMiddleware,async(req,res)=>{
+    try {
+        await User.findByIdAndDelete(req.body._id);
+        return res.status(200).send({
+            success:true,
+            message:"User deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).send({success:false,message:error.message});
+    }
+});
 
 
 
