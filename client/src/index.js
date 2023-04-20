@@ -5,8 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import thunk from 'redux-thunk';
-import {GoogleOAuthProvider} from "@react-oauth/google"
+
 
 
 
