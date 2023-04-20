@@ -71,6 +71,6 @@
 
 .googleBTN:hover{
     transition: all 0.4s;
-    background-color: var(--secondary);
+    background-color: white;
     color: black;
 }
