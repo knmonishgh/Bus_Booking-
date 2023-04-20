@@ -5,12 +5,17 @@ import axois from "axios"
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import styles from "../resources/login.module.css"
+import axios from 'axios';
+
 
 
 
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const handleGoogleLogin = async () => {
+        navigate("/api/auth/google");
+      }
     const onFinish = async (values) => {
         try {
             dispatch(ShowLoading());
@@ -22,6 +27,7 @@ function Login() {
                 setTimeout(() => {
                     window.location.reload();
                 }, 1000);
+                navigate("/")
             } else {
                 message.error(response.data.message);
             }
@@ -34,6 +40,7 @@ function Login() {
 
 
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [form] = Form.useForm()
 
     return (
@@ -63,15 +70,19 @@ function Login() {
                             </div>
                             <hr />
                             <div>
-                                <button className={styles.googleBTN} type="submit">
+                                <button className={styles.googleBTN} onClick={handleGoogleLogin}>
                                     <i className="ri-google-fill"></i> Sign up with Google
                                 </button>
                             </div>
                         </Form>
                     </div>
                 </div>
-            </div></>
+            </div>
+            <div>
+       
+      </div></>
     )
 }
 
-export default Login
+
+export default Login;

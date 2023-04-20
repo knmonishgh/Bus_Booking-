@@ -2,9 +2,72 @@ const router = require('express').Router();
 const User = require("../models/usersmodel")
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/authMiddleware');
 
+
+passport.use(new GoogleStrategy({
+    clientID:'513067274332-u7udvva91ic52gmqlaoei9pt2ppom80p.apps.googleusercontent.com ',
+    clientSecret: "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" ,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    // find or create user in your database
+    try {
+      const user = await User.findOne({ email: profile.emails[0].value });
+      if (user) {
+        done(null, user);
+      } else {
+        const newUser = new User({
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          // you can add more user info from the profile object
+        });
+        await newUser.save();
+        done(null, newUser);
+      }
+    } catch (error) {
+      done(error);
+    }
+  }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+  
+  // deserialize user object from session
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+
+
+  const authenticateUser = (req, res, next) => {
+    passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
+  }
+
+  const handleGoogleCallback = async (req, res, next) => {
+    passport.authenticate('google', { failureRedirect: '/login' })(req, res, async () => {
+      try {
+        // create JWT token for the user
+        const token = jwt.sign({ userId: req.user._id }, "test", {
+          expiresIn: "1d"
+        });
+        // set the JWT token as a cookie in the response
+        res.cookie('jwt', token, { httpOnly: true });
+        res.redirect('/');
+      } catch (error) {
+        next(error);
+      }
+    });
+  }
+
+  router.get('/auth/google', authenticateUser);
+router.get('/auth/google/callback', handleGoogleCallback);
 
 
 router.post("/register", async (req, res) => {
