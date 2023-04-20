@@ -1,9 +1,7 @@
 import { message, Modal, Table } from "antd";
 import moment from "moment";
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import BusForm from "../components/BusForm";
 import PageTitle from "../components/Pagetitle";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
@@ -17,6 +15,7 @@ function Bookings() {
     const getBookings = async () => {
         try {
             dispatch(ShowLoading());
+            
             const response = await axiosInstance.post(
                 "/api/bookings/get-bookings-by-user-id",{});
             dispatch(HideLoading());
@@ -102,6 +101,7 @@ function Bookings() {
 
     useEffect(() => {
         getBookings();
+        
     }, []);
 
     const componentRef = useRef();

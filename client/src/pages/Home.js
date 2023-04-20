@@ -58,6 +58,7 @@ function Home() {
 
 
   return (
+     
     <><div>
       <Carousel autoplay effect="fade" className="Carousel">
         <div>
