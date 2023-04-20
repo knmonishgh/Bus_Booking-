@@ -4,8 +4,65 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/authMiddleware');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+require('dotenv').config();
 
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      const existingUser = await User.findOne({ email: profile.emails[0].value });
+      if (existingUser) {
+        done(null, existingUser);
+      } else {
+        const newUser = new User({
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          isAdmin: false
+        });
+        await newUser.save();
+        res.send({
+            message: "user created succesfully",
+            success: true,
+            data: null
+        })
+        done(null, newUser);
+      }
+    } catch (error) {
+      done(error, null);
+    }
+  }
+));
 
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  async (req, res) => {
+    try {
+      const token = jwt.sign({ userId: req.user._id }, process.env.jwt_secret, {
+        expiresIn: '1h'
+      });
+      res.cookie('token', token, { httpOnly: true });
+      res.send({
+        message: "User Logged in successfully",
+        success: true,
+        data: token
+    });
+      res.redirect('/');
+    } catch (error) {
+      res.send({
+        message: error.message,
+        success: false,
+        data: null
+      });
+    }
+  });
 
 router.post("/register", async (req, res) => {
     try {
