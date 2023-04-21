@@ -26,7 +26,7 @@ function Login() {
             if (response.data.success) {
               message.success(response.data.message);
               localStorage.setItem('token', response.data.data);
-              axios.get('/api/users/me', {
+              axios.post('/api/users/auth/google', {
                 headers: {
                   Authorization: `Bearer ${response.data.data}`,
                 }

@@ -82,7 +82,7 @@ function BookNow() {
     getBus();
   }, []);
   return (
-    <><div>
+    <div>
       {bus && (
         <Row className="mt-3" gutter={[30, 30]}>
           <Col lg={12} xs={24} sm={24}>
@@ -147,45 +147,7 @@ function BookNow() {
           </Col>
         </Row>
       )}
-    </div><>
-        <Button onClick={() => setVisible(true)}>Open Form</Button>
-        <Form
-          form={Form}
-          name="myForm"
-          visible={visible}
-          onFinish={bookNow}
-        >
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your name!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your email!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </></>
+    </div>
 
 
   );

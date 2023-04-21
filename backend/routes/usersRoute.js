@@ -8,6 +8,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 
+
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -38,10 +40,10 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-router.get('/auth/google',
+router.post('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback',
+router.post('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   async (req, res) => {
     try {
