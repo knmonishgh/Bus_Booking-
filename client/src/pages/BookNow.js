@@ -94,7 +94,7 @@ function BookNow() {
 
             <div className="flex flex-col gap-2">
               <p className="text-md">
-                Jourey Date : {bus.journeyDate}
+                Journey Date: {bus.journeyDate.split("-").reverse().join("-")}
               </p>
               <p className="text-md">
                 Fare : ₹ {bus.fare} /-
