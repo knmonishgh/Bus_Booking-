@@ -40,11 +40,15 @@ function AdminBookings() {
     }
   };
 
-  const cancelTicket = async (id) => {
+  
+  const cancelTicket = async (booking) => {
     try {
       dispatch(ShowLoading());
-      const response = await axiosInstance.post("/api/bookings/cancel-ticket", {
-        _id: id,
+      const response = await axiosInstance.post("/api/bookings/cancel-seat", {
+        _id: booking._id,
+        busId: booking.bus._id,
+        userId: booking.user._id,
+        seats: booking.seats
       });
       dispatch(HideLoading());
       if (response.data.success) {
@@ -58,6 +62,7 @@ function AdminBookings() {
       message.error(error.message);
     }
   };
+  
   
 
   const columns = [
@@ -116,13 +121,14 @@ function AdminBookings() {
               Print Ticket
             </p>
             <p
-              className="text-md underline text-red-500"
+              className="text-md underline"
               onClick={() => {
-                cancelTicket(record._id);
+                cancelTicket(record);
               }}
             >
-              Cancel Ticket
+              cancel Ticket
             </p>
+           
           </div>
         ),
       },      
