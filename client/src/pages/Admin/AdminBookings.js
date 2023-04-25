@@ -8,6 +8,7 @@ import Pagetitle from "../../components/Pagetitle";
 import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 import { useReactToPrint } from "react-to-print";
+import { Popconfirm } from "antd";
 
 function AdminBookings() {
   const [showPrintModal, setShowPrintModal] = useState(false);
@@ -43,17 +44,22 @@ function AdminBookings() {
   
   const cancelTicket = async (booking) => {
     try {
+      
       dispatch(ShowLoading());
       const response = await axiosInstance.post("/api/bookings/cancel-seat", {
         _id: booking._id,
         busId: booking.bus._id,
         userId: booking.user._id,
-        seats: booking.seats
+        seats: booking.seats,
       });
       dispatch(HideLoading());
       if (response.data.success) {
         message.success(response.data.message);
-        getBookings(); // fetch the updated list of bookings from the server
+        // Update the bookings list with the updated booking
+        const updatedBookings = bookings.map((bookingItem) =>
+          bookingItem._id === booking._id ? response.data.data : bookingItem
+        );
+        setBookings(updatedBookings);
       } else {
         message.error(response.data.message);
       }
@@ -62,7 +68,6 @@ function AdminBookings() {
       message.error(error.message);
     }
   };
-  
   
 
   const columns = [
@@ -107,31 +112,30 @@ function AdminBookings() {
         },
     },
     {
-        title: "Action",
-        dataIndex: "action",
-        render: (text, record) => (
-          <div>
-            <p
-              className="text-md underline"
-              onClick={() => {
-                setSelectedBooking(record);
-                setShowPrintModal(true);
-              }}
-            >
-              Print Ticket
-            </p>
-            <p
-              className="text-md underline"
-              onClick={() => {
-                cancelTicket(record);
-              }}
-            >
-              cancel Ticket
-            </p>
-           
-          </div>
-        ),
-      },      
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) => (
+        <div>
+          <p
+            className="text-md underline"
+            onClick={() => {
+              setSelectedBooking(record);
+              setShowPrintModal(true);
+            }}
+          >
+            Print Ticket
+          </p>
+          <Popconfirm
+            title="Are you sure you want to cancel this ticket?"
+            onConfirm={() => cancelTicket(record)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <p className="text-md underline">Cancel Ticket</p>
+          </Popconfirm>
+        </div>
+      ),
+    },     
   ];
 
   useEffect(() => {

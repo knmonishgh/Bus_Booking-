@@ -7,7 +7,6 @@ function Bus({ bus }) {
   const navigate = useNavigate();
   return (
     <div className="card p-2 homecard">
-
       <div className="cardtitle">
         <h1 className="text-lg primary-text">{bus.name}</h1>
       </div>
