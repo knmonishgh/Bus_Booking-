@@ -64,7 +64,7 @@ function BookNow() {
       dispatch(ShowLoading());
       const response = await axiosInstance.post("/api/bookings/make-payment", {
         token,
-        amount: selectedSeats.length * bus.fare,
+        amount: selectedSeats.length * bus.fare * 100,
       });
       dispatch(HideLoading());
       if (response.data.success) {
@@ -82,7 +82,7 @@ function BookNow() {
     getBus();
   }, []);
   return (
-    <><div>
+    <div>
       {bus && (
         <Row className="mt-3" gutter={[30, 30]}>
           <Col lg={12} xs={24} sm={24}>
@@ -94,7 +94,7 @@ function BookNow() {
 
             <div className="flex flex-col gap-2">
               <p className="text-md">
-                Jourey Date : {bus.journeyDate}
+                Journey Date: {bus.journeyDate.split("-").reverse().join("-")}
               </p>
               <p className="text-md">
                 Fare : ₹ {bus.fare} /-
@@ -147,45 +147,7 @@ function BookNow() {
           </Col>
         </Row>
       )}
-    </div><>
-        <Button onClick={() => setVisible(true)}>Open Form</Button>
-        <Form
-          form={Form}
-          name="myForm"
-          visible={visible}
-          onFinish={bookNow}
-        >
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your name!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your email!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </></>
+    </div>
 
 
   );

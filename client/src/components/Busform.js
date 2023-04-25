@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
 
+
 function BusForm({
   showBusForm,
   setShowBusForm,
@@ -14,6 +15,7 @@ function BusForm({
   setSelectedBus,
 }) {
   const dispatch = useDispatch();
+
 
   const onFinish = async (values) => {
     try {
@@ -67,18 +69,40 @@ function BusForm({
           </Col>
           <Col lg={12} xs={24}>
             <Form.Item label="Capacity" name="capacity" required>
-              <input type="text" required />
+              <input type="number" required />
             </Form.Item>
           </Col>
 
           <Col lg={12} xs={24}>
             <Form.Item label="From" name="from" required>
-              <input type="text" required />
+              <select name="" id="" >
+                <option value="">Add Source</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Ongole">Ongole</option>
+                <option value="Vijayawada">Vijayawada</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Vishakapatnam">Vishakapatnam</option>
+              </select>
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
             <Form.Item label="To" name="to" required>
-              <input type="text" required />
+              <select name="" id="">
+                <option value="">Add Destination</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Ongole">Ongole</option>
+                <option value="Vijayawada">Vijayawada</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Vishakapatnam">Vishakapatnam</option>
+              </select>
             </Form.Item>
           </Col>
 
@@ -101,6 +125,7 @@ function BusForm({
           <Col lg={12} xs={24}>
             <Form.Item label="Type" name="type" required>
               <select name="" id="">
+                <option value="">Bus Type</option>
                 <option value="AC Seater">AC Seater</option>
                 <option value="AC Sleeper">AC Sleeper</option>
                 <option value="Non-AC Seater">Non-AC Seater</option>
@@ -110,7 +135,7 @@ function BusForm({
           </Col>
           <Col lg={12} xs={24}>
             <Form.Item label="Fare" name="fare" required>
-              <input type="text" required />
+              <input type="number" required />
             </Form.Item>
           </Col>
 

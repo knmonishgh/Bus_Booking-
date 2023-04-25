@@ -8,7 +8,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 
-passport.use(new GoogleStrategy({
+
+
+/*passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL
@@ -38,10 +40,10 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-router.get('/auth/google',
+router.post('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback',
+router.post('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   async (req, res) => {
     try {
@@ -62,7 +64,30 @@ router.get('/auth/google/callback',
         data: null
       });
     }
-  });
+  });*/
+
+
+  //google auth
+
+  /*router.get('/auth/google', passport.authenticate('google', { scope: ['profile','email'] }))
+
+
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { 
+		successRedirect: '/auth/google/success',
+    failureRedirect: '/auth/google/failure'
+	 }),
+  (req, res, next) => {
+    res.redirect('/log')
+  }
+)
+
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
+})
+*/
 
 router.post("/register", async (req, res) => {
     try {

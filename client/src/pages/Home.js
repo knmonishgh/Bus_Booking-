@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Bus from "../components/Bus";
+
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
 import '../resources/home.css';
@@ -15,6 +16,7 @@ function Home() {
   const dispatch = useDispatch();
   const [buses, setBuses] = useState([]);
 
+  
   const getBuses = async () => {
     if (!filters.from || !filters.to) {
       return;
@@ -58,7 +60,7 @@ function Home() {
 
 
   return (
-     
+
     <><div>
       <Carousel autoplay effect="fade" className="Carousel">
         <div>
@@ -79,19 +81,59 @@ function Home() {
             </Col>
             <Col lg={7} sm={24}>
               <label htmlFor="fromInput"><i class="ri-map-pin-2-fill"></i>From</label>
-              <input
-                type="text"
-                placeholder="Choose your source"
+              <select
+                id="fromSelect"
                 value={filters.from}
-                onChange={(e) => setFilters({ ...filters, from: e.target.value })} />
+                onChange={(e) => setFilters({ ...filters, from: e.target.value })}
+              >
+                <option value="">Choose your source</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Ongole">Ongole</option>
+                <option value="Vijayawada">Vijayawada</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Vishakapatnam">Vishakapatnam</option>
+              </select>
             </Col>
             <Col lg={7} sm={24}>
               <label htmlFor="toInput"><i class="ri-map-pin-2-fill"></i>To</label>
-              <input
-                type="text"
-                placeholder="Choose your destination"
+              <select
+                id="toSelect"
                 value={filters.to}
-                onChange={(e) => setFilters({ ...filters, to: e.target.value })} />
+                onChange={(e) => setFilters({ ...filters, to: e.target.value })}
+              >
+                <option value="">Choose your Destination</option>
+                <option value="Bangalore" disabled={filters.from === "Bangalore"}>
+                  Bangalore
+                </option>
+                <option value="Hyderabad" disabled={filters.from === "Hyderabad"}>
+                  Hyderabad
+                </option>
+                <option value="Chennai" disabled={filters.from === "Chennai"}>
+                  Chennai
+                </option>
+                <option value="Ongole" disabled={filters.from === "Ongole"}>
+                  Ongole
+                </option>
+                <option value="Vijayawada" disabled={filters.from === "Vijayawada"}>
+                  Vijayawada
+                </option>
+                <option value="Kochi" disabled={filters.from === "Kochi"}>
+                  Kochi
+                </option>
+                <option value="Mumbai" disabled={filters.from === "Mumbai"}>
+                  Mumbai
+                </option>
+                <option value="Coimbatore" disabled={filters.from === "Coimbatore"}>
+                  Coimbatore
+                </option>
+                <option value="Vishakapatnam" disabled={filters.from === "Vishakapatnam"}>
+                  Vishakapatnam
+                </option>
+              </select>
             </Col>
             <Col lg={7} sm={24}>
               <label htmlFor="dateInput"><i class="ri-calendar-line"></i>Date</label>
