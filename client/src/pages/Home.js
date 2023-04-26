@@ -22,6 +22,7 @@ function Home() {
       return;
     }
 
+
     const tempFilters = {}; //removing values
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {

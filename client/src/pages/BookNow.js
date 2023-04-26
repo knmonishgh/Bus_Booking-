@@ -97,6 +97,9 @@ function BookNow() {
                 Journey Date: {bus.journeyDate.split("-").reverse().join("-")}
               </p>
               <p className="text-md">
+                Bus Type :  {bus.type}
+              </p>
+              <p className="text-md">
                 Fare : ₹ {bus.fare} /-
               </p>
               <p className="text-md">
