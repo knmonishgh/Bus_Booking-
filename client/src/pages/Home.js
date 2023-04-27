@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Bus from "../components/Bus";
+import { Radio } from 'antd';
+
 
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
@@ -15,21 +17,20 @@ function Home() {
   const [filters = {}, setFilters] = useState({});
   const dispatch = useDispatch();
   const [buses, setBuses] = useState([]);
+  const RadioGroup = Radio.Group;
 
-  
   const getBuses = async () => {
     if (!filters.from || !filters.to) {
       return;
     }
-
-
-    const tempFilters = {}; //removing values
+  
+    const tempFilters = {};
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {
         tempFilters[key] = filters[key];
       }
     });
-
+  
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
@@ -46,7 +47,12 @@ function Home() {
         const filteredBuses = response.data.data.filter(
           (bus) => bus.status === "Yet To Start"
         );
-        setBuses(filteredBuses);
+        if (filteredBuses.length === 0) { // check if there are any matching buses
+          setBuses([]);
+          message.warning("No buses found.");
+        } else {
+          setBuses(filteredBuses);
+        }
       } else {
         message.error(response.data.message);
       }
@@ -55,6 +61,7 @@ function Home() {
       message.error(error.message);
     }
   };
+  
   useEffect(() => {
     getBuses();
   }, []);
@@ -81,12 +88,12 @@ function Home() {
               <h1>Book Your Ticket</h1>
             </Col>
             <Col lg={7} sm={24}>
-              <label htmlFor="fromInput"><i class="ri-map-pin-2-fill"></i>From</label>
+              <label htmlFor="fromInput"><i class="ri-map-pin-2-fill" required></i>From</label>
               <select
                 id="fromSelect"
                 value={filters.from}
                 onChange={(e) => setFilters({ ...filters, from: e.target.value })}
-              >
+                required>
                 <option value="">Choose your source</option>
                 <option value="Bangalore">Bangalore</option>
                 <option value="Hyderabad">Hyderabad</option>
@@ -100,12 +107,12 @@ function Home() {
               </select>
             </Col>
             <Col lg={7} sm={24}>
-              <label htmlFor="toInput"><i class="ri-map-pin-2-fill"></i>To</label>
+              <label htmlFor="toInput"><i class="ri-map-pin-2-fill" required></i>To</label>
               <select
                 id="toSelect"
                 value={filters.to}
                 onChange={(e) => setFilters({ ...filters, to: e.target.value })}
-              >
+                required>
                 <option value="">Choose your Destination</option>
                 <option value="Bangalore" disabled={filters.from === "Bangalore"}>
                   Bangalore
@@ -137,46 +144,54 @@ function Home() {
               </select>
             </Col>
             <Col lg={7} sm={24}>
-              <label htmlFor="dateInput"><i class="ri-calendar-line"></i>Date</label>
+              <label htmlFor="dateInput" required><i class="ri-calendar-line" required></i>Date</label>
               <input
                 type="date"
                 placeholder="Date"
                 value={filters.journeyDate}
-                onChange={(e) => setFilters({ ...filters, journeyDate: e.target.value })} />
+                onChange={(e) => setFilters({ ...filters, journeyDate: e.target.value })} required />
             </Col>
             <Col lg={3} sm={24}>
               <div className="d-flex gap-2 searchbtn">
-                <button className="primary-btn" onClick={() => getBuses()}>
+                <button className="primary-btn" onClick={() => {
+                  getBuses();
+                }}>
                   Search
                 </button>
               </div>
             </Col>
           </Row>
+
         </div>
       </div>
       <div>
 
-        {/* <Row gutter={[15, 15]} className="businfo">
+        <Row gutter={[15, 15]} className="businfo">
 
 
 
-          <Col lg={3} sm={24} className="filterin">
-            <input
-              type="text"
-              placeholder="Type"
+          <Row lg={3} sm={24} className="filterin">
+            <Radio.Group
+              onChange={(e) => setFilters({ ...filters, type: e.target.value })}
               value={filters.type}
-              onChange={(e) => setFilters({ ...filters, type: e.target.value })} />
-          </Col>
+            > <h3>Sort by Bus Type : </h3>
+              <Radio value="AC Seater">AC Seater</Radio>
+              <Radio value="AC Sleeper">AC Sleeper</Radio>
+              <Radio value="Non-AC Seater">Non-AC Seater</Radio>
+              <Radio value="Non-AC Sleeper">Non-AC Sleeper</Radio>
+            </Radio.Group>
+          </Row>
+
         </Row>
         <Row>
-          <Col lg={3} sm={24} className="filterin">
+          <Col lg={3} sm={24} className="filterin" >
             <div className="d-flex gap-2">
               <button className="primary-btn" onClick={() => getBuses()}>
                 Filter
               </button>
             </div>
           </Col>
-        </Row> */}
+        </Row>
         {buses
           .filter((bus) => bus.status === "Yet To Start")
           .map((bus) => (
