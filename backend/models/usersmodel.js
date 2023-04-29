@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 
 
-const passgerSchema = mongoose.Schema(
-    {
-        name:String,
-        age:String,
-    }
-)
 
 const userSchema = mongoose.Schema(
     {
