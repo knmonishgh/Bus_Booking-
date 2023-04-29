@@ -179,6 +179,10 @@ function Bookings() {
                         <img src={require("../images/BUSLOGO.png")} alt="logo" />
                         <hr />
                         <p>Bus Name : {selectedBooking.name}</p>
+                        <p>Bus Number : {selectedBooking.number}</p>
+                        <hr/>
+                        <p>Transaction ID : {selectedBooking.transactionId}</p>
+                        <hr/>
                         <p>
                             From : {selectedBooking.from} <br />
                             To : {selectedBooking.to}

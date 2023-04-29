@@ -163,6 +163,10 @@ function AdminBookings() {
         >
           <div className="d-flex flex-column p-5" ref={componentRef}>
             <p>Bus Name : {selectedBooking.name}</p>
+            <p>Bus Number : {selectedBooking.number}</p>
+            <hr />
+            <p>Transaction ID : {selectedBooking.transactionId}</p>
+            <hr />
             <p>
               From : {selectedBooking.from} <br />
               To : {selectedBooking.to}
