@@ -122,7 +122,7 @@ function BookNow() {
                 Selected Seats : {selectedSeats.join(", ")}
               </h1>
               <h1 className="text-2xl mt-2">
-                Fare : {bus.fare * selectedSeats.length} /-
+                Fare : ₹ {bus.fare * selectedSeats.length} /-
               </h1>
               <hr />
 

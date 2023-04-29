@@ -56,17 +56,9 @@ function Bookings() {
                 // setTimeout(() => {
                 //     window.location.reload();
                 // }, 10);
-                const mappedData = response.data.data.map((booking) => {
-                    
-                    return {
-                        ...booking,
-                        ...booking.bus,
-                        key: booking._id,
-                    };
-                });
-
-                setBookings(mappedData);
+                
                 message.success(response.data.message);
+                
                 await getBookings();
             } else {
                 message.error(response.data.message);
@@ -143,12 +135,12 @@ function Bookings() {
             render: (action, cancelbook) => (
                 <div className="d-flex gap-3">
                   <Popconfirm
-                    title="Are you sure you want to delete this user?"
+                    title="Are you sure you want to cancel this ticket?"
                     onConfirm={() => cancelbooking(cancelbook._id)}
                     okText="Yes"
                     cancelText="No"
                   >
-                    <p className="text-danger underline">cancel</p>
+                    <p className="text-danger underline">Cancel</p>
                   </Popconfirm>
                 </div>
               ),

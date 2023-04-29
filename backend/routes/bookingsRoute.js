@@ -148,6 +148,35 @@ router.post("/cancel-booking", authMiddleware, async (req, res) => {
 });
 
 
+router.post("/cancel-bookings", authMiddleware, async (req, res) => {
+  try {
+    
+    const booking = await Booking.findByIdAndDelete(req.body._id);
+    if (!booking) {
+      res.status(404).send({
+        message: "Booking not found",
+        success: false,
+      });
+    } else {
+      const bus = await Bus.findById(booking.bus._id);
+      bus.seatsBooked = bus.seatsBooked.filter(seat => !booking.seats.includes(seat));
+      await bus.save();
+      //await booking.deleteOne(req.body._id);
+      res.status(200).send({
+        message: "Booking cancelled successfully",
+        success: true,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Cancellation failed",
+      data: error,
+      success: false,
+    });
+  }
+});
+
+
 
 
 
