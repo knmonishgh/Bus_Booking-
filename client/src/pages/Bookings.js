@@ -11,24 +11,29 @@ function Bookings() {
     const [showPrintModal, setShowPrintModal] = useState(false);
     const [selectedBooking, setSelectedBooking] = useState(null);
     const [bookings, setBookings] = useState([]);
+    
     const dispatch = useDispatch();
+  
     const getBookings = async () => {
         try {
             dispatch(ShowLoading());
-
             const response = await axiosInstance.post(
                 "/api/bookings/get-bookings-by-user-id", {});
             dispatch(HideLoading());
             if (response.data.success) {
+                
                 const mappedData = response.data.data.map((booking) => {
+                    const { _id, ...busWithoutId } = booking.bus;
                     return {
-                        ...booking,
-                        ...booking.bus,
-                        key: booking._id,
+                      ...booking,
+                      ...busWithoutId,
+                      key: booking._id,
                     };
-                });
+                  });
 
                 setBookings(mappedData);
+                
+                
             } else {
                 message.error(response.data.message);
             }
@@ -40,15 +45,19 @@ function Bookings() {
 
     
 
-    const cancelbooking = async ($bookingId ) => {
+    const cancelbooking = async (id) => {
         try {
             dispatch(ShowLoading());
             const response = await axiosInstance.post("/api/bookings/cancel-booking", {
-                _id: $bookingId
+                _id: id
             });
             dispatch(HideLoading());
             if (response.data.success) {
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 10);
                 const mappedData = response.data.data.map((booking) => {
+                    
                     return {
                         ...booking,
                         ...booking.bus,
@@ -58,7 +67,7 @@ function Bookings() {
 
                 setBookings(mappedData);
                 message.success(response.data.message);
-                getBookings();
+                await getBookings();
             } else {
                 message.error(response.data.message);
             }
@@ -112,29 +121,39 @@ function Bookings() {
         {
             title: "Action",
             dataIndex: "action",
-            render: (text, record) => (
+            render: (text, bookings) => (
                 <div className="d-flex gap-3">
                     <p
                         className="text-md underline"
                         onClick={() => {
-                            setSelectedBooking(record);
+                            setSelectedBooking(bookings);
                             setShowPrintModal(true);
                         }}
                     >
                         Print Ticket
                     </p>
 
-                    <Popconfirm
-                        title="Are you sure you want to cancel this ticket?"
-                        onConfirm={() => cancelbooking(record._id)}
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <p className="text-danger underline" >Cancel</p>
-                    </Popconfirm>
+                    
                 </div>
             ),
         },
+        {
+            title: "Cancel",
+            dataIndex: "cancel",
+            render: (action, cancelbook) => (
+                <div className="d-flex gap-3">
+                  <Popconfirm
+                    title="Are you sure you want to delete this user?"
+                    onConfirm={() => cancelbooking(cancelbook._id)}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <p className="text-danger underline">cancel</p>
+                  </Popconfirm>
+                </div>
+              ),
+            
+        }
     ];
 
     useEffect(() => {

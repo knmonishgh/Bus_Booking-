@@ -90,6 +90,7 @@ router.post("/get-bookings-by-user-id", authMiddleware, async (req, res) => {
       data: bookings,
       success: true,
     });
+    // console.log(bookings);
   } catch (error) {
     res.status(500).send({
       message: "Bookings fetch failed",
@@ -120,7 +121,8 @@ router.post("/get-all-bookings", authMiddleware, async (req, res) => {
 
 router.post("/cancel-booking", authMiddleware, async (req, res) => {
   try {
-    const booking = await Booking.findById(req.body._id);
+    
+    const booking = await Booking.findByIdAndDelete(req.body._id);
     if (!booking) {
       res.status(404).send({
         message: "Booking not found",
@@ -130,7 +132,7 @@ router.post("/cancel-booking", authMiddleware, async (req, res) => {
       const bus = await Bus.findById(booking.bus._id);
       bus.seatsBooked = bus.seatsBooked.filter(seat => !booking.seats.includes(seat));
       await bus.save();
-      await booking.remove();
+      //await booking.deleteOne(req.body._id);
       res.status(200).send({
         message: "Booking cancelled successfully",
         success: true,
