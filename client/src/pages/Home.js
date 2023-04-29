@@ -141,6 +141,9 @@ function Home() {
                 <option value="Vishakapatnam" disabled={filters.from === "Vishakapatnam"}>
                   Vishakapatnam
                 </option>
+                <option value="Mysore" disabled={filters.from === "Mysore"}>
+                  Mysore
+                </option>
               </select>
             </Col>
             <Col lg={7} sm={24}>

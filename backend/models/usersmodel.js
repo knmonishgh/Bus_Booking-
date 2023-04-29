@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+
+const passgerSchema = mongoose.Schema(
+    {
+        name:String,
+        age:String,
+    }
+)
+
 const userSchema = mongoose.Schema(
     {
         name: {
@@ -33,7 +41,11 @@ const userSchema = mongoose.Schema(
         isAdmin: {
             type: Boolean,
             default: false,
-        }
+        },
+      googleId: {
+        type: String,
+        unique: true
+    },
     }
 );
 
