@@ -36,11 +36,6 @@ function DefaultLayout({ children }) {
     ];
     const adminMenu = [
       {
-        name: "Home",
-        path: "/admin",
-        icon: "ri-home-line",
-      },
-      {
         name: "Buses",
         path: "/admin/buses",
         icon: "ri-bus-fill",

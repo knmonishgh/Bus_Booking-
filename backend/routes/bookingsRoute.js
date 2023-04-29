@@ -117,7 +117,39 @@ router.post("/get-all-bookings", authMiddleware, async (req, res) => {
 });
 
 
-router.post('/cancel-seat',authMiddleware, async (req, res) => {
+
+router.post("/cancel-booking", authMiddleware, async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.body._id);
+    if (!booking) {
+      res.status(404).send({
+        message: "Booking not found",
+        success: false,
+      });
+    } else {
+      const bus = await Bus.findById(booking.bus._id);
+      bus.seatsBooked = bus.seatsBooked.filter(seat => !booking.seats.includes(seat));
+      await bus.save();
+      await booking.remove();
+      res.status(200).send({
+        message: "Booking cancelled successfully",
+        success: true,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Cancellation failed",
+      data: error,
+      success: false,
+    });
+  }
+});
+
+
+
+
+
+/*router.post('/cancel-seat',authMiddleware, async (req, res) => {
   try {
     const { _id, busId, userId, seats } = req.body;
     // check if _id, busId, and userId are valid
@@ -141,8 +173,31 @@ router.post('/cancel-seat',authMiddleware, async (req, res) => {
     console.log(error);
     return res.status(500).send({ success: false, message: error.message });
   }
-});
+});*/
 
+/*router.post("/cancelbooking", async (req, res) => {
+  const {bookingid,busid } = req.body;
+  
+
+  try {
+
+    const bookingitem = await Booking.findOne({_id: bookingid}) 
+    bookingitem.status='cancelled'
+    await bookingitem.save();
+    const bus = await Bus.findOne({_id:busid})
+    const bookings = bus.seatsBooked
+    const temp=bookings.filter(booking=>booking.bookingid.toString()!==bookingid)
+    console.log(temp);
+    bus.seatsBooked=temp;
+    await room.save()
+
+    res.send('Booking deleted successfully')
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "something went wrong" });
+  }
+});
+*/
 
 
 
