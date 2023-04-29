@@ -14,6 +14,7 @@ import Bookings from './pages/Bookings';
 import Loader from "./components/Loader";
 import { useSelector } from "react-redux";
 import AdminBookings from './pages/Admin/AdminBookings';
+import About from './pages/About';
 
 function App() {
   //<Route path="/dashboard" element={<dashboard/>} />
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/book-now/:id" element={<ProtectedRoute><BookNow /></ProtectedRoute>}/>
           <Route path="/bookings" element={<ProtectedRoute><Bookings /></ProtectedRoute>}/>
+          <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </div>

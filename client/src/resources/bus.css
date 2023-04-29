@@ -2,6 +2,7 @@
     width: 300px !important;
     border: 2px solid gray;
     padding: 10px;
+    cursor: pointer;
   }
   .seat {
     display: flex;
@@ -24,10 +25,30 @@
       cursor: disabled !important;
   }
 
-.homecard{
-  margin: 20px;
-  border: 0;
+
+
+.homecard {
+  flex: 1 0 calc(33.333% - 10px);
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
+
+@media (max-width: 992px) {
+  .homecard {
+    flex: 1 0 calc(50% - 10px);
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .homecard {
+    flex: 1 0 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
 
 .cardtitle{
   background-color: rgb(244, 165, 86);

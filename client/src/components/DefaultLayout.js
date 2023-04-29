@@ -24,9 +24,9 @@ function DefaultLayout({ children }) {
         icon: "ri-file-list-3-line",
       },
       {
-        name: "Profile",
-        path: "/profile",
-        icon: "ri-user-3-line",
+        name: "About",
+        path: "/about",
+        icon: "ri-information-fill",
       },
       {
         name: "Logout",
@@ -79,7 +79,12 @@ function DefaultLayout({ children }) {
         <div className="body">
           <div className="header">
             <div className="subheader">
-              <img src={require("../images/BUSLOGO.png")} alt="logo" />
+              <img src={require("../images/BUSLOGO.png")} alt="logo" onClick={() => navigate('/')}/>
+              {user && (
+              <div className="user-name">{`Welcome, ${
+                user.isAdmin ? "Admin" : user.name
+              }`}</div>
+            )}
             </div>
   
             <div className="d-flex flex-row gap-3 justify-content-end menu nav">
@@ -106,9 +111,9 @@ function DefaultLayout({ children }) {
               })}
             </div>
           </div>
-          <div className="content">{children}</div>
+          <div className="content">{children} </div>
+          {!user?.isAdmin && <Footer />}
         </div>
-        <Footer />
       </div>
     );
   }

@@ -15,7 +15,60 @@ function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    
+    const [ user, setUser ] = useState([]);
+    const [ profile, setProfile ] = useState([]);
+
+    const handleSignIn = useGoogleLogin({
+        onSuccess: (codeResponse) => {
+          axios.post('/api/users/auth/google', {
+            id_token: codeResponse.id_token,
+          }).then((response) => {
+            if (response.data.success) {
+              message.success(response.data.message);
+              localStorage.setItem('token', response.data.data);
+              axios.post('/api/users/auth/google', {
+                headers: {
+                  Authorization: `Bearer ${response.data.data}`,
+                }
+              }).then((res) => {
+                if (res.data.success) {
+                  const user = res.data.data;
+                  if (user.googleId) {
+                    navigate('/');
+                  } else {
+                    axios.post('/api/users/auth/google', {
+                      email: user.email,
+                      name: user.name,
+                    }, {
+                      headers: {
+                        Authorization: `Bearer ${response.data.data}`,
+                      }
+                    }).then((res) => {
+                      if (res.data.success) {
+                        navigate('/');
+                      } else {
+                        message.error(res.data.message);
+                      }
+                    }).catch((error) => {
+                      message.error(error.message);
+                    });
+                  }
+                } else {
+                  message.error(res.data.message);
+                }
+              }).catch((error) => {
+                message.error(error.message);
+              });
+            } else {
+              message.error(response.data.message);
+            }
+          }).catch((error) => {
+            message.error(error.message);
+          });
+        },
+        onError: (error) => console.log('Login Failed:', error)
+      });
+      
 
     const onFinish = async (values) => {
         try {
