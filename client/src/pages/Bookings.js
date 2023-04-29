@@ -1,4 +1,4 @@
-import { message, Modal, Table } from "antd";
+import { message, Modal, Table,Popconfirm } from "antd";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -15,12 +15,11 @@ function Bookings() {
     const getBookings = async () => {
         try {
             dispatch(ShowLoading());
-            
+
             const response = await axiosInstance.post(
-                "/api/bookings/get-bookings-by-user-id",{});
+                "/api/bookings/get-bookings-by-user-id", {});
             dispatch(HideLoading());
-            if (response.data.success) 
-            {
+            if (response.data.success) {
                 const mappedData = response.data.data.map((booking) => {
                     return {
                         ...booking,
@@ -30,6 +29,36 @@ function Bookings() {
                 });
 
                 setBookings(mappedData);
+            } else {
+                message.error(response.data.message);
+            }
+        } catch (error) {
+            dispatch(HideLoading());
+            message.error(error.message);
+        }
+    };
+
+    
+
+    const cancelbooking = async ($bookingId ) => {
+        try {
+            dispatch(ShowLoading());
+            const response = await axiosInstance.post("/api/bookings/cancel-booking", {
+                _id: $bookingId
+            });
+            dispatch(HideLoading());
+            if (response.data.success) {
+                const mappedData = response.data.data.map((booking) => {
+                    return {
+                        ...booking,
+                        ...booking.bus,
+                        key: booking._id,
+                    };
+                });
+
+                setBookings(mappedData);
+                message.success(response.data.message);
+                getBookings();
             } else {
                 message.error(response.data.message);
             }
@@ -84,7 +113,7 @@ function Bookings() {
             title: "Action",
             dataIndex: "action",
             render: (text, record) => (
-                <div>
+                <div className="d-flex gap-3">
                     <p
                         className="text-md underline"
                         onClick={() => {
@@ -94,6 +123,15 @@ function Bookings() {
                     >
                         Print Ticket
                     </p>
+
+                    <Popconfirm
+                        title="Are you sure you want to cancel this ticket?"
+                        onConfirm={() => cancelbooking(record._id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <p className="text-danger underline" >Cancel</p>
+                    </Popconfirm>
                 </div>
             ),
         },
@@ -101,7 +139,7 @@ function Bookings() {
 
     useEffect(() => {
         getBookings();
-        
+
     }, []);
 
     const componentRef = useRef();
