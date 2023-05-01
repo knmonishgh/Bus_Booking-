@@ -12,7 +12,7 @@ router.post('/google-login', async (req, res) => {
     const { userInfo } = req.body;
   
     const { email, name } = userInfo;
-    
+    console.log(userInfo)
     
     // Check if the user already exists in the database
     let user = await User.findOne({ email });
@@ -22,6 +22,7 @@ router.post('/google-login', async (req, res) => {
       user = new User({
         email,
         name,
+        password:"Try@moni810",
       });
       await user.save();
     }
@@ -50,7 +51,7 @@ router.post('/google-login', async (req, res) => {
 
 router.post("/register", async (req, res) => {
     try {
-        const existingUser = await User.findOne({ $or: [{ email: req.body.email }, { phone: req.body.phone }] });
+        const existingUser = await User.findOne({ $or: [{ email: req.body.email }] });
         if (existingUser) {
             if (existingUser.email === req.body.email) {
                 return res.send({

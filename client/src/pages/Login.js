@@ -126,7 +126,7 @@ function Login() {
                   <i class="fa-brands fa-google"></i>
                   Continue with google
                 </button>
-                <GoogleLogin
+                {/* <GoogleLogin
                   onSuccess={credentialResponse => {
                     console.log(credentialResponse.credential);
                     var decoded = jwt_decode(credentialResponse.credential);
@@ -134,7 +134,7 @@ function Login() {
                   }}
                   onError={() => {
                     console.log('Login Failed');
-                  }} />
+                  }} /> */}
               </div>
             </Form>
           </div>
