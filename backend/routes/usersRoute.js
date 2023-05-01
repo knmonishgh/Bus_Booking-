@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require("../models/usersmodel")
-const session = require('express-session');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/authMiddleware');
@@ -12,7 +11,7 @@ router.post('/google-login', async (req, res) => {
     const { userInfo } = req.body;
   
     const { email, name } = userInfo;
-    console.log(userInfo)
+    
     
     // Check if the user already exists in the database
     let user = await User.findOne({ email });
