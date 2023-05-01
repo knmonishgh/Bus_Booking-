@@ -122,19 +122,11 @@ function Login() {
               </div>
               <hr />
               <div>
-                <button onClick={login}>
-                  <i class="fa-brands fa-google"></i>
-                  Continue with google
+                <button onClick={login} className={styles.googleBtn}>
+                  <img src="https://developers.google.com/identity/images/g-logo.png" width={"20px"} alt="Google logo" /> 
+                  <span>Continue with Google</span>
                 </button>
-                {/* <GoogleLogin
-                  onSuccess={credentialResponse => {
-                    console.log(credentialResponse.credential);
-                    var decoded = jwt_decode(credentialResponse.credential);
-                    console.log(decoded)
-                  }}
-                  onError={() => {
-                    console.log('Login Failed');
-                  }} /> */}
+
               </div>
             </Form>
           </div>

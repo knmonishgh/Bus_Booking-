@@ -58,19 +58,26 @@
     color:navy;
 }
 
-.googleBTN{
-    padding: 2px;
-    width: 100%;
-    border: 0px none;
-    background-color: #797389;
-    border-radius: 50px;
-    border-radius: .5rem;
-    color:white;
-    transition: all 0.4s;
-}
-
-.googleBTN:hover{
-    transition: all 0.4s;
+.googleBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
-    color: black;
-}
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #757575;
+    height: 36px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    padding: 20px;
+  }
+  
+  
+
+  .googleBtn:hover {
+    background-color: #fafafa;
+  }
+  
