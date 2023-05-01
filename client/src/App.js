@@ -15,12 +15,14 @@ import { useSelector } from "react-redux";
 import AdminBookings from './pages/Admin/AdminBookings';
 import About from './pages/About';
 
+
 function App() {
   //<Route path="/dashboard" element={<dashboard/>} />
   const { loading } = useSelector((state) => state.alerts);
   return (
     <div>
       {loading && <Loader />}
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />

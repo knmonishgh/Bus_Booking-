@@ -12,40 +12,28 @@ const userSchema = mongoose.Schema(
     {
         name: {
             type: String,
-            required: true
+            //required: true
         },
         password: {
             type: String,                   
-            required: true
+            //required: true
         },
-        phone: {
-            type: String, 
-            unique:true,                    
-            required: true
-        },
+        
         isAdmin: {
             type: Boolean,
-            default: false,
+            //default: false,
           },
         email: {
             type: String,
             unique:true,                
-            required: true
+            //required: true
             
-        },
-        googleId: {
-            type: String,
-            unique: true,
-            sparse: true
         },
         isAdmin: {
             type: Boolean,
             default: false,
         },
-      googleId: {
-        type: String,
-        unique: true
-    },
+      
     }
 );
 

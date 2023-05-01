@@ -35,12 +35,7 @@ function Register() {
         return Promise.resolve()
     }
 
-    const validatePhone = (_, value) => {
-        if (!/^\d{10}$/.test(value)) {
-            return Promise.reject('Phone Number should be exactly 10 digits')
-        }
-        return Promise.resolve()
-    }
+    
 
     const validateEmail = (_, value) => {
         if (!/\S+@\S+\.\S+/.test(value)) {
@@ -84,9 +79,7 @@ function Register() {
                     <Form.Item label="Full Name" name="name" rules={[{ validator: validateName }]} required>
                         <Input prefix={<UserOutlined />} placeholder=" Enter Full Name " type="text" required />
                     </Form.Item>
-                    <Form.Item label="Phone" name="phone" rules={[{ validator: validatePhone }]} required>
-                        <Input prefix={<PhoneOutlined />} placeholder=" Enter a valid Phone Number " type="text" required />
-                    </Form.Item>
+                    
                     <Form.Item label="Email" name="email" rules={[{ validator: validateEmail }]} required>
                         <Input prefix={<MailOutlined />} placeholder=" Enter a valid Email " type="text" required />
                     </Form.Item>

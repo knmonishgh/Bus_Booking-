@@ -7,6 +7,45 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 require('dotenv').config();
 
+router.post('/google-login', async (req, res) => {
+  try {
+    const { userInfo } = req.body;
+  
+    const { email, name } = userInfo;
+    
+    
+    // Check if the user already exists in the database
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create a new user if the user does not exist
+      user = new User({
+        email,
+        name,
+      });
+      await user.save();
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: token,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
+});
+
+
 
 
 router.post("/register", async (req, res) => {
@@ -19,13 +58,7 @@ router.post("/register", async (req, res) => {
                     success: false,
                     data: null
                 });
-            } else if (existingUser.phone === req.body.phone) {
-                return res.send({
-                    message: "User with this phone number already exists",
-                    success: false,
-                    data: null
-                });
-            }
+            } 
         }
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         req.body.password = hashedPassword;
@@ -60,7 +93,7 @@ router.post("/login", async (req, res) => {
                 data: null,
             });
         }
-
+      console.log(userExists)
         const passwordMatch = await bcrypt.compare(
             req.body.password,
             userExists.password
