@@ -156,7 +156,7 @@ function Home() {
             </Col>
             <Col lg={3} sm={24}>
               <div className="d-flex gap-2 searchbtn">
-                <button className="primary-btn" onClick={() => {
+                <button className="search-btn" onClick={() => {
                   getBuses();
                 }}>
                   Search
@@ -189,7 +189,7 @@ function Home() {
         <Row>
           <Col lg={3} sm={24} className="filterin" >
             <div className="d-flex gap-2">
-              <button className="primary-btn" onClick={() => getBuses()}>
+              <button className="filter-btn" onClick={() => getBuses()}>
                 Filter
               </button>
             </div>

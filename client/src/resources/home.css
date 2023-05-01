@@ -92,3 +92,29 @@
     display: flex;
     justify-content: center;
 }
+
+.search-btn {
+    background-color: rgb(0, 119, 255);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    height: 40px;
+  }
+
+.search-btn:hover{
+    background-color: var(--primary);
+}
+
+.filter-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    height: 40px;
+  }
+
+.filter-btn:hover{
+    background-color:rgb(0, 119, 255);
+}
