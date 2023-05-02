@@ -106,16 +106,16 @@ function BusForm({
             </Form.Item>
           </Col>
 
-          <Col lg={4} xs={24}>
-            <Form.Item label="Start Date" name="startDate" required>
+          <Col lg={8} xs={24}>
+            <Form.Item label="Start Date" name="journeyDate" required>
               <input type="date" required />
             </Form.Item>
           </Col>
-          <Col lg={4} xs={24}>
+          {/* <Col lg={4} xs={24}>
             <Form.Item label="End Date" name="endDate" required>
               <input type="date" required />
             </Form.Item>
-          </Col>
+          </Col> */}
           <Col lg={8} xs={24}>
             <Form.Item label="Departure" name="departure" required>
               <input type="time" required />
