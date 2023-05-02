@@ -106,8 +106,13 @@ function BusForm({
             </Form.Item>
           </Col>
 
-          <Col lg={8} xs={24}>
-            <Form.Item label="Journey Date" name="journeyDate" required>
+          <Col lg={4} xs={24}>
+            <Form.Item label="Start Date" name="startDate" required>
+              <input type="date" required />
+            </Form.Item>
+          </Col>
+          <Col lg={4} xs={24}>
+            <Form.Item label="End Date" name="endDate" required>
               <input type="date" required />
             </Form.Item>
           </Col>
