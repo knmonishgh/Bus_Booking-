@@ -13,6 +13,11 @@ router.post("/add-bus", authMiddleware, async (req, res) => {
       });
     }
 
+    // const newBus = new Bus({
+    //   ...req.body
+    // });
+    // await newBus.save();
+
     const startDate = new Date(req.body.startDate);
     const endDate = new Date(req.body.endDate);
    
@@ -29,10 +34,9 @@ router.post("/add-bus", authMiddleware, async (req, res) => {
 
     // Create a new Bus instance for each date and save it to the database
     for (const date of dates) {
-
+      var jdate = date.toString()
       const newBus = new Bus({
-        ...req.body,
-        journeyDate: date,
+        ...req.body
       });
       await newBus.save();
     }
