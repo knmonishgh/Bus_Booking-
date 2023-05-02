@@ -95,7 +95,7 @@ function AdminBookings() {
       title: "Journey Date",
       dataIndex: "journeyDate",
       render: (journeyDate) => {
-        return moment(journeyDate).format("dddd, DD MMMM YYYY");
+        return moment(journeyDate).format("DD-MM-YYYY");
       },
     },
 

@@ -84,7 +84,7 @@ function Bookings() {
             title: "Journey Date",
             dataIndex: "journeyDate",
             render: (journeyDate) => {
-                return moment(journeyDate).format("dddd, DD MMMM YYYY");
+                return moment(journeyDate).format("DD-MM-YYYY");
             },
         },
         {
@@ -191,7 +191,7 @@ function Bookings() {
                         <hr />
                         <p>
                             <span>Journey Date :</span>{" "}
-                            {moment(selectedBooking.journeyDate).format("dddd, DD MMMM YYYY")}
+                            {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
                         </p>
                         <p>
                             <span>Departure : </span> {selectedBooking.departure}

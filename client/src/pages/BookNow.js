@@ -94,7 +94,7 @@ function BookNow() {
 
             <div className="flex flex-col gap-2">
               <p className="text-md">
-                Journey Date: {bus.journeyDate.split("-").reverse().join("-")}
+              Journey Date: {new Date(bus.journeyDate).toLocaleDateString('en-GB')}
               </p>
               <p className="text-md">
                 Bus Type :  {bus.type}
