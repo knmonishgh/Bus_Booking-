@@ -1,7 +1,4 @@
 
-
-
-
 .container {
     height: '100vh';
     display: 'flex';
@@ -78,6 +75,7 @@
   
 
   .googleBtn:hover {
-    background-color: #fafafa;
+    background-color: whitesmoke;
   }
+  
   

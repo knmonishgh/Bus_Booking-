@@ -1,19 +1,66 @@
 import React from 'react'
+import { useState } from 'react'
 import { Form, Input, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
-import axois from "axios"
+import axios from "axios"
 import styles from "../resources/login.module.css"
 import { useDispatch } from "react-redux";
-import { UserOutlined, EyeTwoTone, EyeInvisibleOutlined, PhoneOutlined, MailOutlined,LockOutlined } from '@ant-design/icons';
+import { UserOutlined, EyeTwoTone, EyeInvisibleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
+import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from "jwt-decode";
+
 
 function Register() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const onFinish = async (values) => { 
+
+    const [user, setUser] = useState([]);
+    const [profile, setProfile] = useState([]);
+
+    const login = useGoogleLogin({
+        onSuccess: async respose => {
+            try {
+                const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: {
+                        "Authorization": `Bearer ${respose.access_token}`
+                    }
+                })
+
+
+
+                const payload = {
+                    userInfo: res.data,
+
+                };
+
+                const response = await axios.post('/api/users/google-login', payload);
+                if (response.data.success) {
+                    message.success(response.data.message);
+                    localStorage.setItem("token", response.data.data);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                    navigate("/")
+                } else {
+                    message.error(response.data.message);
+                }
+                console.log(res.data)
+            } catch (err) {
+                console.log(err)
+
+            }
+
+        }
+    });
+
+
+
+    const onFinish = async (values) => {
         try {
             dispatch(ShowLoading());
-            const response = await axois.post("/api/users/register", values);
+            const response = await axios.post("/api/users/register", values);
             dispatch(HideLoading());
             if (response.data.success) {
                 message.success(response.data.message);
@@ -35,7 +82,7 @@ function Register() {
         return Promise.resolve()
     }
 
-    
+
 
     const validateEmail = (_, value) => {
         if (!/\S+@\S+\.\S+/.test(value)) {
@@ -79,7 +126,7 @@ function Register() {
                     <Form.Item label="Full Name" name="name" rules={[{ validator: validateName }]} required>
                         <Input prefix={<UserOutlined />} placeholder=" Enter Full Name " type="text" required />
                     </Form.Item>
-                    
+
                     <Form.Item label="Email" name="email" rules={[{ validator: validateEmail }]} required>
                         <Input prefix={<MailOutlined />} placeholder=" Enter a valid Email " type="text" required />
                     </Form.Item>
@@ -105,6 +152,16 @@ function Register() {
                     <div className='d-flex justify-content-between align-items-center'>
                         <Link to="/login">Click here to Login</Link>
                         <button className='secondary-btn' type='submit'>Register</button>
+                    </div>
+
+                    <hr />
+                    <div>
+                        <button onClick={login} className={styles.googleBtn}>
+                            <img src={require("../images/google logo.png")} width={"20px"} alt="Google logo" style={{ marginRight: "8px" }} />
+                            <span style={{ marginLeft: "8px" }}>Continue with Google</span>
+                        </button>
+
+
                     </div>
                 </Form>
             </div>

@@ -18,11 +18,15 @@ router.post('/google-login', async (req, res) => {
     let user = await User.findOne({ email });
 
     if (!user) {
+     
+    // Hash the password for 10 times with bcrypt
+    const hashedPassword = await bcrypt.hash("Presi@123", 10);  
+
       // Create a new user if the user does not exist
       user = new User({
         email,
         name,
-        password:"Try@moni810",
+        password: hashedPassword,
       });
       await user.save();
     }
@@ -66,7 +70,7 @@ router.post("/register", async (req, res) => {
         const newUser = new User(req.body);
         await newUser.save();
         res.send({
-            message: "user created succesfully",
+            message: "User created succesfully",
             success: true,
             data: null
         })
@@ -109,11 +113,11 @@ router.post("/login", async (req, res) => {
 
         //to generate  jwt token : encrypted from of any data 
         const token = jwt.sign({ userId: userExists._id }, "test", {
-            expiresIn: "1h"
+            expiresIn: "7d"
         });
 
         res.send({
-            message: "User Logged in successfully",
+            message: "Login successful",
             success: true,
             data: token
         });
