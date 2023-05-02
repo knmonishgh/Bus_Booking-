@@ -158,7 +158,7 @@ function Home() {
                 value={filters.journeyDate}
                 min={new Date().toISOString().slice(0, 10)}
                 max={new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)}
-                defaultValue={new Date().toISOString().slice(0, 10)}
+                //defaultValue={new Date().toISOString().slice(0, 10)}
                 onChange={(e) => {
                   setFilters({ ...filters, journeyDate: e.target.value });
                 }}
