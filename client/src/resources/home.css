@@ -88,10 +88,21 @@
    margin-top: 35px;
 }
 
-.partnershimg{
+.partnershimg {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-}
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .partnershimg img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    padding: 10px;
+  }
+  
 
 .search-btn {
     background-color: rgb(0, 119, 255);

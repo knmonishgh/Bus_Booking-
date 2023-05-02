@@ -23,14 +23,14 @@ function Home() {
     if (!filters.from || !filters.to) {
       return;
     }
-  
+
     const tempFilters = {};
     Object.keys(filters).forEach((key) => {
       if (filters[key]) {
         tempFilters[key] = filters[key];
       }
     });
-  
+
     try {
       dispatch(ShowLoading());
       const response = await axios.post(
@@ -61,7 +61,7 @@ function Home() {
       message.error(error.message);
     }
   };
-  
+
   useEffect(() => {
     getBuses();
   }, []);
@@ -104,6 +104,7 @@ function Home() {
                 <option value="Mumbai">Mumbai</option>
                 <option value="Coimbatore">Coimbatore</option>
                 <option value="Vishakapatnam">Vishakapatnam</option>
+                <option value="Mysore">Mysore</option>
               </select>
             </Col>
             <Col lg={7} sm={24}>
@@ -147,13 +148,25 @@ function Home() {
               </select>
             </Col>
             <Col lg={7} sm={24}>
-              <label htmlFor="dateInput" required><i class="ri-calendar-line" required></i>Date</label>
+              <label htmlFor="dateInput">
+                <i class="ri-calendar-line"></i>Date
+              </label>
               <input
                 type="date"
+                id="dateInput"
                 placeholder="Date"
                 value={filters.journeyDate}
-                onChange={(e) => setFilters({ ...filters, journeyDate: e.target.value })} required />
+                min={new Date().toISOString().slice(0, 10)}
+                max={new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)}
+                defaultValue={new Date().toISOString().slice(0, 10)}
+                onChange={(e) => {
+                  setFilters({ ...filters, journeyDate: e.target.value });
+                }}
+                required
+              />
             </Col>
+
+
             <Col lg={3} sm={24}>
               <div className="d-flex gap-2 searchbtn">
                 <button className="search-btn" onClick={() => {
@@ -254,8 +267,11 @@ function Home() {
           <h1>Partners</h1>
         </div>
         <div className="partnershimg">
-          <img style={{ width: "300px", padding: "10px" }} src={require("../images/Karnataka-Tourism-694x235-1-1-1.png")} alt="" />
+         
           <img style={{ width: "100px", padding: "10px" }} src={require("../images/KSRTC_Logo.png")} alt="" />
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/Karnataka-Tourism-694x235-1-1-1.png")} alt="" />
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/apsrtc.png")} alt="" />
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/aptour1.png")} alt="" />
         </div>
 
       </div></>

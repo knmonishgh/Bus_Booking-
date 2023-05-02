@@ -86,6 +86,7 @@ function BusForm({
                 <option value="Mumbai">Mumbai</option>
                 <option value="Coimbatore">Coimbatore</option>
                 <option value="Vishakapatnam">Vishakapatnam</option>
+                <option value="Mysore">Mysore</option>
               </select>
             </Form.Item>
           </Col>
@@ -102,20 +103,28 @@ function BusForm({
                 <option value="Mumbai">Mumbai</option>
                 <option value="Coimbatore">Coimbatore</option>
                 <option value="Vishakapatnam">Vishakapatnam</option>
+                <option value="Mysore">Mysore</option>
               </select>
             </Form.Item>
           </Col>
 
           <Col lg={4} xs={24}>
             <Form.Item label="Start Date" name="startDate" required>
-              <input type="date" required />
+              <input type="date"
+                
+                placeholder="Select date"
+              />
             </Form.Item>
           </Col>
           <Col lg={4} xs={24}>
             <Form.Item label="End Date" name="endDate" required>
-              <input type="date" required />
+              <input type="date"
+                
+                placeholder="Select date"
+              />
             </Form.Item>
           </Col>
+
           <Col lg={8} xs={24}>
             <Form.Item label="Departure" name="departure" required>
               <input type="time" required />

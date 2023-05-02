@@ -1,29 +1,30 @@
 .bus-container {
-    width: 300px !important;
-    border: 2px solid gray;
-    padding: 10px;
-    cursor: pointer;
-  }
-  .seat {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border: 1px solid gray;
-    border-radius: 2px;
-  }
-  
-  .selected-seat{
-      background-color: green;
-      color: white;
-  }
-  
-  .booked-seat{
-      background-color: gray;
-      color: white;
-      pointer-events: none !important;
-      cursor: disabled !important;
-  }
+  width: 300px !important;
+  border: 2px solid gray;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.seat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+
+.selected-seat {
+  background-color: green;
+  color: white;
+}
+
+.booked-seat {
+  background-color: gray;
+  color: white;
+  pointer-events: none !important;
+  cursor: disabled !important;
+}
 
 
 
@@ -50,20 +51,24 @@
 }
 
 
-.cardtitle{
+.cardtitle {
   background-color: rgb(244, 165, 86);
   padding: 10px;
 }
 
-.cardtitle h1{
+.cardtitle h1 {
   color: black !important;
 }
 
-.booknow{
-  background-color: rgb(244, 165, 86);
-  color: aliceblue;
+.booknow {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  height: 40px;
 }
 
-.booknow:hover{
-  background-color: green;
+.booknow:hover {
+  background-color: rgb(244, 165, 86);
 }
