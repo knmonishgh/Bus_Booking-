@@ -88,7 +88,7 @@ function AdminBuses() {
     {
       title: "Journey Date",
       dataIndex: "journeyDate",
-      render: (journeyDate) => moment(journeyDate).format("dddd, DD MMMM YYYY")
+      render: (journeyDate) => moment(journeyDate).format("DD-MM-YYYY")
       
     },
     {

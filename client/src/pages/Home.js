@@ -267,8 +267,11 @@ function Home() {
           <h1>Partners</h1>
         </div>
         <div className="partnershimg">
-          <img style={{ width: "300px", padding: "10px" }} src={require("../images/Karnataka-Tourism-694x235-1-1-1.png")} alt="" />
+         
           <img style={{ width: "100px", padding: "10px" }} src={require("../images/KSRTC_Logo.png")} alt="" />
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/Karnataka-Tourism-694x235-1-1-1.png")} alt="" />
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/apsrtc.png")} alt="" />
+          <img style={{ width: "300px", padding: "10px" }} src={require("../images/aptour1.png")} alt="" />
         </div>
 
       </div></>
