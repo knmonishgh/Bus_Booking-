@@ -15,7 +15,7 @@ router.post("/add-bus", authMiddleware, async (req, res) => {
 
     const startDate = new Date(req.body.startDate);
     const endDate = new Date(req.body.endDate);
-    var num = req.body.number;
+   
 
     // Create an array of dates between the start and end dates
     const dates = [];
@@ -23,15 +23,15 @@ router.post("/add-bus", authMiddleware, async (req, res) => {
     while (currentDate <= endDate) {
       dates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
-      num=num+1;
+      
 
     }
 
     // Create a new Bus instance for each date and save it to the database
     for (const date of dates) {
+
       const newBus = new Bus({
         ...req.body,
-        number: num,
         journeyDate: date,
       });
       await newBus.save();
