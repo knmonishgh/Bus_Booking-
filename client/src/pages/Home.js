@@ -104,6 +104,7 @@ function Home() {
                 <option value="Mumbai">Mumbai</option>
                 <option value="Coimbatore">Coimbatore</option>
                 <option value="Vishakapatnam">Vishakapatnam</option>
+                <option value="Mysore">Mysore</option>
               </select>
             </Col>
             <Col lg={7} sm={24}>
@@ -147,7 +148,9 @@ function Home() {
               </select>
             </Col>
             <Col lg={7} sm={24}>
-              <label htmlFor="dateInput"><i class="ri-calendar-line"></i>Date</label>
+              <label htmlFor="dateInput">
+                <i class="ri-calendar-line"></i>Date
+              </label>
               <input
                 type="date"
                 id="dateInput"
@@ -157,20 +160,8 @@ function Home() {
                 max={new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)}
                 defaultValue={new Date().toISOString().slice(0, 10)}
                 onChange={(e) => {
-                  const selectedDate = new Date(e.target.value);
-                  const today = new Date();
-                  const next30days = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
-                  if (selectedDate < today || selectedDate > next30days) {
-                    e.preventDefault();
-                    e.target.value = "";
-                    setFilters({ ...filters, journeyDate: "" });
-                    if (selectedDate > today) {
-                      alert("Please select a date within the next 30 days.");
-                    }
-                  } else {
-                    setFilters({ ...filters, journeyDate: e.target.value });
-                  }
-                }}                
+                  setFilters({ ...filters, journeyDate: e.target.value });
+                }}
                 required
               />
             </Col>
