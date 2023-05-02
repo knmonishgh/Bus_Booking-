@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import styles from "../resources/login.module.css"
 import { useDispatch } from "react-redux";
-import { UserOutlined, EyeTwoTone, EyeInvisibleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, EyeTwoTone, EyeInvisibleOutlined, MailOutlined,LockOutlined } from '@ant-design/icons';
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
 import { useGoogleLogin } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
@@ -108,11 +108,7 @@ function Register() {
 
     const [form] = Form.useForm()
 
-    /* const handleReset = () => {
-        form.resetFields();
-    }; 
-    <button className='secondary-btn' type='reset'>Reset</button>
-    to reset fields*/
+    
 
     return (
         <div className={styles.loginbox}>

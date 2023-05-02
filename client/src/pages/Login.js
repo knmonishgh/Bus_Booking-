@@ -1,5 +1,4 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
 import { Form, Input, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
@@ -8,8 +7,7 @@ import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { EyeTwoTone, EyeInvisibleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import styles from "../resources/login.module.css";
 import { useGoogleLogin } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from "jwt-decode";
+
 
 
 
@@ -19,8 +17,7 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
+  
 
   const login = useGoogleLogin({
     onSuccess: async respose => {

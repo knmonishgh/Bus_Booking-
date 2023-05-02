@@ -1,4 +1,11 @@
 
+body{
+    background-image: url("https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 .container {
     height: '100vh';
     display: 'flex';
@@ -38,7 +45,7 @@
     width: 400px;
     padding:20px;
     box-shadow: rgba(0, 0, 0, 0.377) 0px 10px 20px 0px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(252, 251, 251, 0.413);
     
 }
 
