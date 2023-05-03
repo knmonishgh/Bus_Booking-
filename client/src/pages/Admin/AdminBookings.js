@@ -174,7 +174,7 @@ function AdminBookings() {
 
             <hr />
             <p>
-              <span>Journey Date :</span>{" "}
+              <span>Journey Date : </span>{" "}
               {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
             </p>
             <p>
@@ -191,7 +191,7 @@ function AdminBookings() {
             <hr />
             <p>
               <span>Total Amount : </span>{" "}
-              {selectedBooking.fare * selectedBooking.seats.length} /-
+              ₹ {selectedBooking.fare * selectedBooking.seats.length} /-
             </p>
           </div>
         </Modal>
