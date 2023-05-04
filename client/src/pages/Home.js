@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Bus from "../components/Bus";
 import { Radio } from 'antd';
+import { DatePicker } from 'antd';
 
 
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
@@ -20,7 +21,7 @@ function Home() {
   const RadioGroup = Radio.Group;
 
   const getBuses = async () => {
-    if (!filters.from || !filters.to) {
+    if (!filters.from || !filters.to || !filters.journeyDate) {
       return;
     }
 
@@ -158,7 +159,6 @@ function Home() {
                 value={filters.journeyDate}
                 min={new Date().toISOString().slice(0, 10)}
                 max={new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)}
-                defaultValue={new Date().toISOString().slice(0, 10)}
                 onChange={(e) => {
                   setFilters({ ...filters, journeyDate: e.target.value });
                 }}
