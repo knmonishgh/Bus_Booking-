@@ -86,6 +86,7 @@ function BusForm({
                 <option value="Mumbai">Mumbai</option>
                 <option value="Coimbatore">Coimbatore</option>
                 <option value="Vishakapatnam">Vishakapatnam</option>
+                <option value="Mysore">Mysore</option>
               </select>
             </Form.Item>
           </Col>
@@ -172,3 +173,5 @@ function BusForm({
     </Modal>
   );
 }
+
+export default BusForm;
