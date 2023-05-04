@@ -117,4 +117,3 @@ router.post("/get-bus-by-id", authMiddleware, async (req, res) => {
 
 
 module.exports = router;
-

@@ -59,10 +59,6 @@ function AdminUsers() {
       dataIndex: "email",
     },
     {
-      title: "Phone Number",
-      dataIndex: "phone",
-    },
-    {
       title: "Action",
       dataIndex: "action",
       render: (action, record) => (

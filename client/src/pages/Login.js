@@ -120,9 +120,10 @@ function Login() {
               <hr />
               <div>
                 <button onClick={login} className={styles.googleBtn}>
-                  <img src="https://developers.google.com/identity/images/g-logo.png" width={"20px"} alt="Google logo" /> 
-                  <span>Continue with Google</span>
+                  <img src={require("../images/google logo.png")} width={"20px"} alt="Google logo" style={{ marginRight: "8px" }} />
+                  <span style={{ marginLeft: "8px" }}>Continue with Google</span>
                 </button>
+
 
               </div>
             </Form>

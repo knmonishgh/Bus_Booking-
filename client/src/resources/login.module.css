@@ -1,5 +1,5 @@
 
-body{
+.container{
     background-image: url("https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80");
     background-repeat: no-repeat;
     background-size: cover;
@@ -82,6 +82,7 @@ body{
   
 
   .googleBtn:hover {
-    background-color: #fafafa;
+    background-color: whitesmoke;
   }
+  
   

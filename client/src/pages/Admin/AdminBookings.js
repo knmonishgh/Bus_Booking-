@@ -175,7 +175,7 @@ function AdminBookings() {
             <hr />
             <p>
               <span>Journey Date :</span>{" "}
-              {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
+              {moment(selectedBooking.journeyDate).format("dddd, DD MMMM YYYY")}
             </p>
             <p>
               <span>Departure : </span> {selectedBooking.departure}
