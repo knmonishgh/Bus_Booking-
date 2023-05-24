@@ -6,7 +6,7 @@ mongoose.set('strictQuery', true);
 
 
 async function main() {
-    await mongoose.connect(process.env.mongo_url);
+    await mongoose.connect("mongodb://127.0.0.1:27017/TravelSwift3");
   }
 
   main().catch(err => console.log(err));
